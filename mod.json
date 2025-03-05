@@ -1,0 +1,156 @@
+{
+	"geode": "4.2.0",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074"
+	},
+	"id": "nwo5.better_editor_trail",
+	"name": "Better Editor Trail",
+	"version": "v1.0.0",
+	"developer": "Nwo5",
+	"description": "A Customizable Editor Trail Alternative.",
+	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
+	"links": {
+		"source": "https://github.com/Nwo5-trg/Better-Editor-Trail"
+	},
+	"settings": {
+		"trail-title": {
+			"type": "title",
+			"name": "Trail"
+		},
+		"trail-size": {
+			"type": "float",
+			"name": "Trail Size",
+			"default": 0.5,
+			"min": 0.1,
+			"max": 10
+		},
+		"trail-interval": {
+			"type": "float",
+			"name": "Trail Interval",
+			"description": "In seconds, 0 is every frame.",
+			"default": 0,
+			"min": 0,
+			"max": 1
+		},
+		"trail-color-one": {
+			"type": "rgba",
+			"name": "Trail Color One",
+			"default": [51, 255, 51, 255]
+		},
+		"trail-color-two": {
+			"type": "rgba",
+			"name": "Trail Color Two",
+			"default": [51, 255, 255, 255]
+		},
+		"use-hold-one": {
+			"type": "bool",
+			"name": "Use Hold For P1",
+			"default": true
+		},
+		"use-hold-two": {
+			"type": "bool",
+			"name": "Use Hold For P2",
+			"default": true
+		},
+		"trail-hold-color-one": {
+			"type": "rgba",
+			"name": "Trail Hold Color One",
+			"default": [151, 255, 151, 255]
+		},
+		"trail-hold-color-two": {
+			"type": "rgba",
+			"name": "Trail Hold Color Two",
+			"default": [151, 255, 255, 255]
+		},
+		"player-one-for-trail": {
+			"type": "bool",
+			"name": "Use P1",
+			"default": false,
+			"description": "Use P1 color as trail color."
+		},
+		"player-two-for-trail": {
+			"type": "bool",
+			"name": "Use P2",
+			"default": false,
+			"description": "Use P2 color as trail color."
+		},
+		"clicks-title": {
+			"type": "title",
+			"name": "Clicks"
+		},
+		"show-clicks": {
+			"type": "bool",
+			"name": "Show Clicks",
+			"default": true
+		},
+		"click-shape": {
+			"type": "string",
+			"name": "Click Shape",
+			"default": "Square",
+			"one-of": ["Circle", "Square"]
+		},
+		"click-direction": {
+			"type": "bool",
+			"name": "Click Direction Indicator",
+			"description": "Instead of click shape, the indicator in platformer mode will be an arrow pointing towards move direction.",
+			"default": true
+		},
+		"click-size": {
+			"type": "float",
+			"name": "Click Size",
+			"default": 2,
+			"min": 0.1,
+			"max": 10
+		},
+		"click-color-one": {
+			"type": "rgba",
+			"name": "Click Color One",
+			"default": [244, 139, 0, 255]
+		},
+		"click-color-two": {
+			"type": "rgba",
+			"name": "Click Color Two",
+			"default": [244, 139, 0, 255]
+		},
+		"releases-title": {
+			"type": "title",
+			"name": "Releases"
+		},
+		"show-releases": {
+			"type": "bool",
+			"name": "Show Releases",
+			"default": true
+		},
+		"release-shape": {
+			"type": "string",
+			"name": "Release Shape",
+			"default": "Circle",
+			"one-of": ["Circle", "Square"]
+		},
+		"release-direction": {
+			"type": "bool",
+			"name": "Release Direction Indicator",
+			"description": "Instead of release shape, the indicator in platformer mode will be an arrow pointing towards move direction.",
+			"default": true
+		},
+		"release-size": {
+			"type": "float",
+			"name": "Release Size",
+			"default": 1.5,
+			"min": 0.1,
+			"max": 10
+		},
+		"release-color-one": {
+			"type": "rgba",
+			"name": "Release Color One",
+			"default": [0, 235, 255, 255]
+		},
+		"release-color-two": {
+			"type": "rgba",
+			"name": "Release Color Two",
+			"default": [0, 235, 255, 255]
+		}
+	}
+}
