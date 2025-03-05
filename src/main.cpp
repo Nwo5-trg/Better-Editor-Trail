@@ -94,8 +94,9 @@ class $modify (LevelEditor, LevelEditorLayer) {
             auto pcolor = m_fields->batchLayer->getChildByType<PlayerObject>(1)->m_playerColor1;
             m_fields->trailColor2 = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor2.a);
         }
-        CCDirector::sharedDirector()->getScheduler()->scheduleSelector( // if someone lags from this or something ill add an optimised mode with scheduleupdatefortarget
-        schedule_selector(LevelEditor::trailUpdate), this, mod->getSettingValue<double>("trail-interval"), false);
+         // if someone lags from this or something ill add an optimised mode with scheduleupdatefortarget
+        CCDirector::sharedDirector()->getScheduler()->scheduleSelector(
+        schedule_selector(LevelEditor::trailUpdate), this, static_cast<float>(mod->getSettingValue<double>("trail-interval")), false);
     }
     
     void stopTrailUpdateLoop() {
@@ -103,7 +104,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
         schedule_selector(LevelEditor::trailUpdate), this);
     }
 
-    void trailUpdate() {
+    void trailUpdate(float dt) {
         CCPoint currentPlayerPos; // tried making this code cleaner but it wouldnt render duals so whatever
 
         if (auto player = m_fields->batchLayer->getChildByType<PlayerObject>(0)) {
