@@ -5,6 +5,7 @@
 using namespace geode::prelude;
 
 auto mod = Mod::get();
+bool trailRendering = false;
 
 class $modify (LevelEditor, LevelEditorLayer) {
     struct Fields {
@@ -82,6 +83,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
     }
     
     void startTrailUpdateLoop() {
+        trailRendering = true;
         m_fields->lastPlayerPos = ccp(-100, -100);
         m_fields->lastPlayerPos2 = ccp(-100, -100);
         m_fields->trailRenderer->clear();
@@ -100,27 +102,29 @@ class $modify (LevelEditor, LevelEditorLayer) {
     }
     
     void stopTrailUpdateLoop() {
+        trailRendering = false;
         CCDirector::sharedDirector()->getScheduler()->unscheduleSelector(
         schedule_selector(LevelEditor::trailUpdate), this);
     }
 
     void trailUpdate(float dt) {
         CCPoint currentPlayerPos; // tried making this code cleaner but it wouldnt render duals so whatever
+        auto fields = m_fields.self();
 
-        if (auto player = m_fields->batchLayer->getChildByType<PlayerObject>(0)) {
+        if (auto player = fields->batchLayer->getChildByType<PlayerObject>(0)) {
             currentPlayerPos = player->getPosition();
-            if (m_fields->lastPlayerPos != ccp(-100, -100)) {
-                m_fields->trailRenderer->drawSegment(m_fields->lastPlayerPos, currentPlayerPos, m_fields->trailSize, (m_fields->holding && m_fields->useHold) ? m_fields->trailHoldColor : m_fields->trailColor);
+            if (fields->lastPlayerPos != ccp(-100, -100)) {
+                fields->trailRenderer->drawSegment(fields->lastPlayerPos, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold) ? fields->trailHoldColor : fields->trailColor);
             }
-            m_fields->lastPlayerPos = currentPlayerPos;
+            fields->lastPlayerPos = currentPlayerPos;
         }
         
-        if (auto player = m_fields->batchLayer->getChildByType<PlayerObject>(1)) {
+        if (auto player = fields->batchLayer->getChildByType<PlayerObject>(1)) {
             currentPlayerPos = player->getPosition();
-            if (m_fields->lastPlayerPos2 != ccp(-100, -100)) {
-                m_fields->trailRenderer->drawSegment(m_fields->lastPlayerPos2, currentPlayerPos, m_fields->trailSize, (m_fields->holding && m_fields->useHold2) ? m_fields->trailHoldColor2 : m_fields->trailColor2);
+            if (fields->lastPlayerPos2 != ccp(-100, -100)) {
+                fields->trailRenderer->drawSegment(fields->lastPlayerPos2, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold2) ? fields->trailHoldColor2 : fields->trailColor2);
             }
-            m_fields->lastPlayerPos2 = currentPlayerPos;
+            fields->lastPlayerPos2 = currentPlayerPos;
         }
     }
 
@@ -165,7 +169,7 @@ class $modify (Player, PlayerObject) {
 
     bool pushButton(PlayerButton p0) {
         auto ret = PlayerObject::pushButton(p0);
-        if (m_fields->showClicks && !m_fields->buttonPushed) if (auto levelEditor = static_cast<LevelEditor*>(LevelEditorLayer::get())) {
+        if (m_fields->showClicks && !m_fields->buttonPushed && trailRendering) if (auto levelEditor = static_cast<LevelEditor*>(LevelEditorLayer::get())) {
             if (!m_isPlatformer) levelEditor->trailAddClick(m_isSecondPlayer, false, this, false, p0);
             else levelEditor->trailAddClick(m_isSecondPlayer, false, this, true, p0);
             m_fields->buttonPushed = true;
@@ -175,7 +179,7 @@ class $modify (Player, PlayerObject) {
 
     bool releaseButton(PlayerButton p0) {
         auto ret = PlayerObject::releaseButton(p0);
-        if (m_fields->showReleases) if (auto levelEditor = static_cast<LevelEditor*>(LevelEditorLayer::get())) {
+        if (m_fields->showReleases && trailRendering) if (auto levelEditor = static_cast<LevelEditor*>(LevelEditorLayer::get())) {
             if (!m_isPlatformer) levelEditor->trailAddClick(m_isSecondPlayer, true, this, false, p0);
             else levelEditor->trailAddClick(m_isSecondPlayer, true, this, true, p0);
             m_fields->buttonPushed = false;
