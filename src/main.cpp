@@ -46,7 +46,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
         
         auto nodes = this->getChildren(); // not crash with shaderlayer
         for (int i = 0; i < nodes->count(); i++) { 
-            if (auto layer = dynamic_cast<CCLayer*>(static_cast<CCNode*>(nodes->objectAtIndex(i))->getChildByType<CCNode>(0))) {
+            if (auto layer = typeinfo_cast<CCLayer*>(static_cast<CCNode*>(nodes->objectAtIndex(i))->getChildByType<CCNode>(0))) {
                 if (layer->getChildByType<CCDrawNode>(0)) m_fields->trailRenderLayer = layer;
             }
         }

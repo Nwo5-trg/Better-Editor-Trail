@@ -1,4 +1,8 @@
 ﻿
+
+## v1.0.4
+- Use typeinfo cast
+
 ## v1.0.3
 - Fixed crash with shaders on windows
 
