@@ -43,7 +43,13 @@ class $modify (LevelEditor, LevelEditorLayer) {
 
         if (auto shaderLayer = this->getChildByType<ShaderLayer>(0)) m_fields->batchLayer = shaderLayer->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
         else m_fields->batchLayer = this->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
-        m_fields->trailRenderLayer = this->getChildByType<CCNode>(3)->getChildByType<CCLayer>(0);
+        
+        auto nodes = this->getChildren(); // not crash with shaderlayer
+        for (int i = 0; i < nodes->count(); i++) { 
+            if (auto layer = dynamic_cast<CCLayer*>(static_cast<CCNode*>(nodes->objectAtIndex(i))->getChildByType<CCNode>(0))) {
+                if (layer->getChildByType<CCDrawNode>(0)) m_fields->trailRenderLayer = layer;
+            }
+        }
 
         auto trailRenderer = CCDrawNode::create();
         trailRenderer->setZOrder(1401);
