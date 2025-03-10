@@ -1,6 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/LevelEditorLayer.hpp>
 #include <Geode/modify/PlayerObject.hpp>
+#include <Geode/modify/GJBaseGameLayer.hpp>
 
 using namespace geode::prelude;
 
@@ -88,16 +89,16 @@ class $modify (LevelEditor, LevelEditorLayer) {
         LevelEditorLayer::onPlaytest();
         startTrailUpdateLoop();
     }
-
+    
     void onStopPlaytest() {
-        LevelEditorLayer::onStopPlaytest();
         stopTrailUpdateLoop();
+        LevelEditorLayer::onStopPlaytest();
     }
     
     void startTrailUpdateLoop() {
         trailRendering = true;
-        m_fields->lastPlayerPos = ccp(-100, -100);
-        m_fields->lastPlayerPos2 = ccp(-100, -100);
+        resetPlayerPos(false);
+        resetPlayerPos(true);
         m_fields->trailRenderer->clear();
         m_fields->dotRenderer->clear();
         if (mod->getSettingValue<bool>("player-one-for-trail") && m_fields->batchLayer->getChildByType<PlayerObject>(0)) {
@@ -172,7 +173,19 @@ class $modify (LevelEditor, LevelEditorLayer) {
             m_fields->dotRenderer->drawSegment(ccp(pos.x - ((size * 1.5) * 2), pos.y), ccp(pos.x - (size * 1.5), pos.y - (size * 1.5)), size / 2, col);
         }
     }
+
+    void resetPlayerPos(bool player) {
+        (player ? m_fields->lastPlayerPos2 : m_fields->lastPlayerPos) = ccp(-100, -100);
+    }
 };
+
+class $modify (BaseLayer, GJBaseGameLayer) {
+    void toggleDualMode(GameObject* p0, bool p1, PlayerObject* p2, bool p3) {
+        if (auto levelEditor = static_cast<LevelEditor*>(LevelEditorLayer::get())) levelEditor->resetPlayerPos(true);
+        GJBaseGameLayer::toggleDualMode(p0, p1, p2, p3);
+    }
+};
+
 
 class $modify (Player, PlayerObject) {
     struct Fields {

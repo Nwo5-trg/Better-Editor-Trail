@@ -7,9 +7,9 @@
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v1.0.4",
+	"version": "v1.0.5",
 	"developer": "Nwo5",
-	"description": "A Customizable Editor Trail Alternative.",
+	"description": "A customizable editor trail alternative.",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
 	"links": {
 		"source": "https://github.com/Nwo5-trg/Better-Editor-Trail"
