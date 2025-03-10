@@ -1,5 +1,4 @@
-﻿
-# Better Editor Trail
+﻿# Better Editor Trail
 A customizable alternative to the vanilla editor trail.
 
 ## Features:
@@ -10,4 +9,5 @@ A customizable alternative to the vanilla editor trail.
 - Change trail color when holding.
 
 ## Credits:
-- *colorfulmarker* (on the gd modding discord server) for the mod idea.
+- *colorfulmarker* (on the gd modding discord server) for the mod idea
+- *Rue* for the fire logo

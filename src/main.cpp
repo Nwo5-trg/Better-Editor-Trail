@@ -32,6 +32,12 @@ class $modify (LevelEditor, LevelEditorLayer) {
         ccColor4F dotReleaseColor;
         ccColor4F dotReleaseColor2;
     };
+
+    virtual void postUpdate(float dt) { // disable default path
+        m_trailTimer = 0;
+        LevelEditorLayer::postUpdate(dt);
+    }
+    
     bool init (GJGameLevel* p0, bool p1) {
         if (!LevelEditorLayer::init(p0, p1)) return false;
 
@@ -39,13 +45,13 @@ class $modify (LevelEditor, LevelEditorLayer) {
         else m_fields->batchLayer = this->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
         m_fields->trailRenderLayer = this->getChildByType<CCNode>(3)->getChildByType<CCLayer>(0);
 
-        m_fields->trailRenderLayer->getChildByType<CCDrawNode>(0)->setVisible(false);
         auto trailRenderer = CCDrawNode::create();
         trailRenderer->setZOrder(1401);
         m_fields->trailRenderLayer->addChild(trailRenderer);
         m_fields->trailRenderer = trailRenderer;
 
         if (mod->getSettingValue<bool>("show-clicks") || mod->getSettingValue<bool>("show-releases")) {
+            GameManager::sharedState()->setGameVariable("0149", false);
             auto dotRenderer = CCDrawNode::create(); // make a dot renderer seperately so dots render above the trail
             dotRenderer->setZOrder(1402);
             m_fields->trailRenderLayer->addChild(dotRenderer);
@@ -108,6 +114,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
     }
 
     void trailUpdate(float dt) {
+        if (trailRendering == false) return;
         CCPoint currentPlayerPos; // tried making this code cleaner but it wouldnt render duals so whatever
         auto fields = m_fields.self();
 
@@ -130,10 +137,11 @@ class $modify (LevelEditor, LevelEditorLayer) {
 
     void trailAddClick(bool player, bool isRelease, PlayerObject* playerObj, bool platformer, PlayerButton button) {
         auto color = isRelease ? (player ? m_fields->dotReleaseColor2 : m_fields->dotReleaseColor) : (player ? m_fields->dotColor2 : m_fields->dotColor);
-        
         if (!platformer || !(isRelease ? m_fields->releaseDirection : m_fields->clickDirection)) {
-            if (mod->getSettingValue<std::string>(isRelease ? "release-shape" : "click-shape") == "Square") m_fields->dotRenderer->drawDot(playerObj->getPosition(), isRelease ? m_fields->releaseSize : m_fields->clickSize, color);
-            if (mod->getSettingValue<std::string>(isRelease ? "release-shape" : "click-shape") == "Circle") m_fields->dotRenderer->drawCircle(playerObj->getPosition(), isRelease ? m_fields->releaseSize : m_fields->clickSize, color, 0, color, 30);
+            if (!(!platformer && !(button == PlayerButton::Jump))) {
+                if (mod->getSettingValue<std::string>(isRelease ? "release-shape" : "click-shape") == "Square") m_fields->dotRenderer->drawDot(playerObj->getPosition(), isRelease ? m_fields->releaseSize : m_fields->clickSize, color);
+                if (mod->getSettingValue<std::string>(isRelease ? "release-shape" : "click-shape") == "Circle") m_fields->dotRenderer->drawCircle(playerObj->getPosition(), isRelease ? m_fields->releaseSize : m_fields->clickSize, color, 0, color, 30);
+            }
         }
         else drawArrow(playerObj->getPosition(), isRelease ? m_fields->releaseSize : m_fields->clickSize, color, button);
 
