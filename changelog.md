@@ -1,4 +1,7 @@
 ﻿
+## v1.0.6
+- **Fixed** trail not rendering sometimes (hopefully)
+
 ## v1.0.5
 - **Added** new formating for changelog :3
 - **Fixed** p2 trail not rendering on android (hopefully) (reported by *JohnnyCena123*)

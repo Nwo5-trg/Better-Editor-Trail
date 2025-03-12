@@ -41,6 +41,8 @@ class $modify (LevelEditor, LevelEditorLayer) {
     
     bool init (GJGameLevel* p0, bool p1) {
         if (!LevelEditorLayer::init(p0, p1)) return false;
+        
+        trailRendering = false;
 
         if (auto shaderLayer = this->getChildByType<ShaderLayer>(0)) m_fields->batchLayer = shaderLayer->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
         else m_fields->batchLayer = this->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
@@ -96,6 +98,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
     }
     
     void startTrailUpdateLoop() {
+        log::error("startTrailUpdateLoop");
         trailRendering = true;
         resetPlayerPos(false);
         resetPlayerPos(true);
@@ -115,12 +118,14 @@ class $modify (LevelEditor, LevelEditorLayer) {
     }
     
     void stopTrailUpdateLoop() {
+        log::error("stopTrailUpdateLoop");
         trailRendering = false;
         CCDirector::sharedDirector()->getScheduler()->unscheduleSelector(
         schedule_selector(LevelEditor::trailUpdate), this);
     }
 
     void trailUpdate(float dt) {
+        log::info("update");
         if (trailRendering == false) return;
         CCPoint currentPlayerPos; // tried making this code cleaner but it wouldnt render duals so whatever
         auto fields = m_fields.self();
