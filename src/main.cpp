@@ -41,8 +41,6 @@ class $modify (LevelEditor, LevelEditorLayer) {
     
     bool init (GJGameLevel* p0, bool p1) {
         if (!LevelEditorLayer::init(p0, p1)) return false;
-        
-        trailRendering = false;
 
         if (auto shaderLayer = this->getChildByType<ShaderLayer>(0)) m_fields->batchLayer = shaderLayer->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
         else m_fields->batchLayer = this->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
@@ -131,17 +129,21 @@ class $modify (LevelEditor, LevelEditorLayer) {
         auto fields = m_fields.self();
 
         if (auto player = fields->batchLayer->getChildByType<PlayerObject>(0)) {
+            log::info("update checked p1");
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold) ? fields->trailHoldColor : fields->trailColor);
+                log::info("update drawn p1 | {}, {}, {}, {}", fields->lastPlayerPos, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold) ? fields->trailHoldColor : fields->trailColor);
             }
             fields->lastPlayerPos = currentPlayerPos;
         }
         
         if (auto player = fields->batchLayer->getChildByType<PlayerObject>(1)) {
+            log::info("update checked p1");
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos2 != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos2, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold2) ? fields->trailHoldColor2 : fields->trailColor2);
+                log::info("update drawn p2 | {}, {}, {}, {}", fields->lastPlayerPos2, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold2) ? fields->trailHoldColor2 : fields->trailColor2);
             }
             fields->lastPlayerPos2 = currentPlayerPos;
         }
