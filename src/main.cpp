@@ -133,7 +133,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold) ? fields->trailHoldColor : fields->trailColor);
-                log::info("update drawn p1 | {}, {}, {}, {}", fields->lastPlayerPos, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold) ? fields->trailHoldColor : fields->trailColor);
+                log::info("update drawn p1 | {}, {}, {}", fields->lastPlayerPos, currentPlayerPos, fields->trailSize);
             }
             fields->lastPlayerPos = currentPlayerPos;
         }
@@ -143,7 +143,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos2 != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos2, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold2) ? fields->trailHoldColor2 : fields->trailColor2);
-                log::info("update drawn p2 | {}, {}, {}, {}", fields->lastPlayerPos2, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold2) ? fields->trailHoldColor2 : fields->trailColor2);
+                log::info("update drawn p2 | {}, {}, {}", fields->lastPlayerPos2, currentPlayerPos, fields->trailSize);
             }
             fields->lastPlayerPos2 = currentPlayerPos;
         }
