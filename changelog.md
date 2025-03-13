@@ -1,6 +1,7 @@
 ﻿
 ## v1.0.6
-- **Fixed** probably nothing ngl
+- **Added** use default trail as a bandaid solution to ccdrawnode being weird
+- **Fixed** first click not showing if you died holding
 
 ## v1.0.5
 - **Added** new formating for changelog :3

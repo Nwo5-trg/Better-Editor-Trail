@@ -24,6 +24,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
         bool useHold2 = mod->getSettingValue<bool>("use-hold-two");
         bool clickDirection = mod->getSettingValue<bool>("click-direction");
         bool releaseDirection = mod->getSettingValue<bool>("release-direction");
+        bool useDefaultTrail = mod->getSettingValue<bool>("use-default-trail");
         ccColor4F trailColor;
         ccColor4F trailColor2;
         ccColor4F trailHoldColor;
@@ -35,7 +36,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
     };
 
     virtual void postUpdate(float dt) { // disable default path
-        m_trailTimer = 0;
+        m_trailTimer = m_fields->useDefaultTrail ? 240 : 0;
         LevelEditorLayer::postUpdate(dt);
     }
     
@@ -101,23 +102,24 @@ class $modify (LevelEditor, LevelEditorLayer) {
         resetPlayerPos(true);
         m_fields->trailRenderer->clear();
         m_fields->dotRenderer->clear();
-        if (mod->getSettingValue<bool>("player-one-for-trail") && m_fields->batchLayer->getChildByType<PlayerObject>(0)) {
-            auto pcolor = m_fields->batchLayer->getChildByType<PlayerObject>(0)->m_playerColor1;
-            m_fields->trailColor = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor.a);
+        if (!m_fields->useDefaultTrail) {
+            if (mod->getSettingValue<bool>("player-one-for-trail") && m_fields->batchLayer->getChildByType<PlayerObject>(0)) {
+                auto pcolor = m_fields->batchLayer->getChildByType<PlayerObject>(0)->m_playerColor1;
+                m_fields->trailColor = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor.a);
+            }
+            if (mod->getSettingValue<bool>("player-two-for-trail") && m_fields->batchLayer->getChildByType<PlayerObject>(1)) {
+                auto pcolor = m_fields->batchLayer->getChildByType<PlayerObject>(1)->m_playerColor1;
+                m_fields->trailColor2 = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor2.a);
+            }
+            // if someone lags from this or something ill add an optimised mode with scheduleupdatefortarget
+            CCDirector::sharedDirector()->getScheduler()->scheduleSelector(
+            schedule_selector(LevelEditor::trailUpdate), this, static_cast<float>(mod->getSettingValue<double>("trail-interval")), false);
         }
-        if (mod->getSettingValue<bool>("player-two-for-trail") && m_fields->batchLayer->getChildByType<PlayerObject>(1)) {
-            auto pcolor = m_fields->batchLayer->getChildByType<PlayerObject>(1)->m_playerColor1;
-            m_fields->trailColor2 = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor2.a);
-        }
-         // if someone lags from this or something ill add an optimised mode with scheduleupdatefortarget
-        CCDirector::sharedDirector()->getScheduler()->scheduleSelector(
-        schedule_selector(LevelEditor::trailUpdate), this, static_cast<float>(mod->getSettingValue<double>("trail-interval")), false);
     }
     
     void stopTrailUpdateLoop() {
         trailRendering = false;
-        CCDirector::sharedDirector()->getScheduler()->unscheduleSelector(
-        schedule_selector(LevelEditor::trailUpdate), this);
+        if (!m_fields->useDefaultTrail) CCDirector::sharedDirector()->getScheduler()->unscheduleSelector(schedule_selector(LevelEditor::trailUpdate), this);
     }
 
     void trailUpdate(float dt) {
@@ -193,6 +195,11 @@ class $modify (Player, PlayerObject) {
         bool showClicks = mod->getSettingValue<bool>("show-clicks");
         bool showReleases = mod->getSettingValue<bool>("show-releases");
     };
+
+    void releaseAllButtons() {
+        PlayerObject::releaseAllButtons();
+        m_fields->buttonPushed = false;
+    }
 
     bool pushButton(PlayerButton p0) {
         auto ret = PlayerObject::pushButton(p0);
