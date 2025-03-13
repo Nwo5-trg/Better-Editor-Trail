@@ -96,7 +96,6 @@ class $modify (LevelEditor, LevelEditorLayer) {
     }
     
     void startTrailUpdateLoop() {
-        log::error("startTrailUpdateLoop");
         trailRendering = true;
         resetPlayerPos(false);
         resetPlayerPos(true);
@@ -116,34 +115,28 @@ class $modify (LevelEditor, LevelEditorLayer) {
     }
     
     void stopTrailUpdateLoop() {
-        log::error("stopTrailUpdateLoop");
         trailRendering = false;
         CCDirector::sharedDirector()->getScheduler()->unscheduleSelector(
         schedule_selector(LevelEditor::trailUpdate), this);
     }
 
     void trailUpdate(float dt) {
-        log::info("update");
         if (trailRendering == false) return;
         CCPoint currentPlayerPos; // tried making this code cleaner but it wouldnt render duals so whatever
         auto fields = m_fields.self();
 
         if (auto player = fields->batchLayer->getChildByType<PlayerObject>(0)) {
-            log::info("update checked p1");
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold) ? fields->trailHoldColor : fields->trailColor);
-                log::info("update drawn p1 | {}, {}, {}", fields->lastPlayerPos, currentPlayerPos, fields->trailSize);
             }
             fields->lastPlayerPos = currentPlayerPos;
         }
         
         if (auto player = fields->batchLayer->getChildByType<PlayerObject>(1)) {
-            log::info("update checked p1");
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos2 != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos2, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold2) ? fields->trailHoldColor2 : fields->trailColor2);
-                log::info("update drawn p2 | {}, {}, {}", fields->lastPlayerPos2, currentPlayerPos, fields->trailSize);
             }
             fields->lastPlayerPos2 = currentPlayerPos;
         }
