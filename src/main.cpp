@@ -198,7 +198,10 @@ class $modify (Player, PlayerObject) {
 
     void releaseAllButtons() {
         PlayerObject::releaseAllButtons();
-        m_fields->buttonPushed = false;
+        if (auto levelEditor = static_cast<LevelEditor*>(LevelEditorLayer::get())) {
+            levelEditor->m_fields->holding = false;
+            m_fields->buttonPushed = false;
+        }
     }
 
     bool pushButton(PlayerButton p0) {
