@@ -108,7 +108,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
                 m_fields->trailColor = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor.a);
             }
             if (mod->getSettingValue<bool>("player-two-for-trail") && m_player2) {
-                auto pcolor = m_player2->m_playerColor2;
+                auto pcolor = m_player2->m_playerColor1;
                 m_fields->trailColor2 = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor2.a);
             }
             // if someone lags from this or something ill add an optimised mode with scheduleupdatefortarget
