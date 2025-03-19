@@ -100,15 +100,15 @@ class $modify (LevelEditor, LevelEditorLayer) {
         trailRendering = true;
         resetPlayerPos(false);
         resetPlayerPos(true);
-        m_fields->trailRenderer->clear();
-        m_fields->dotRenderer->clear();
+        if (m_fields->trailRenderer) m_fields->trailRenderer->clear();
+        if (m_fields->dotRenderer) m_fields->dotRenderer->clear();
         if (!m_fields->useDefaultTrail) {
-            if (mod->getSettingValue<bool>("player-one-for-trail") && m_fields->batchLayer->getChildByType<PlayerObject>(0)) {
-                auto pcolor = m_fields->batchLayer->getChildByType<PlayerObject>(0)->m_playerColor1;
+            if (mod->getSettingValue<bool>("player-one-for-trail") && m_player1) {
+                auto pcolor = m_player1->m_playerColor1;
                 m_fields->trailColor = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor.a);
             }
-            if (mod->getSettingValue<bool>("player-two-for-trail") && m_fields->batchLayer->getChildByType<PlayerObject>(1)) {
-                auto pcolor = m_fields->batchLayer->getChildByType<PlayerObject>(1)->m_playerColor1;
+            if (mod->getSettingValue<bool>("player-two-for-trail") && m_player2) {
+                auto pcolor = m_player2->m_playerColor2;
                 m_fields->trailColor2 = ccc4f(pcolor.r / 255.f, pcolor.g / 255.f, pcolor.b / 255.f, m_fields->trailColor2.a);
             }
             // if someone lags from this or something ill add an optimised mode with scheduleupdatefortarget
@@ -127,7 +127,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
         CCPoint currentPlayerPos; // tried making this code cleaner but it wouldnt render duals so whatever
         auto fields = m_fields.self();
 
-        if (auto player = fields->batchLayer->getChildByType<PlayerObject>(0)) {
+        if (auto player = m_player1) {
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold) ? fields->trailHoldColor : fields->trailColor);
@@ -135,7 +135,7 @@ class $modify (LevelEditor, LevelEditorLayer) {
             fields->lastPlayerPos = currentPlayerPos;
         }
         
-        if (auto player = fields->batchLayer->getChildByType<PlayerObject>(1)) {
+        if (auto player = m_player2) {
             currentPlayerPos = player->getPosition();
             if (fields->lastPlayerPos2 != ccp(-100, -100)) {
                 fields->trailRenderer->drawSegment(fields->lastPlayerPos2, currentPlayerPos, fields->trailSize, (fields->holding && fields->useHold2) ? fields->trailHoldColor2 : fields->trailColor2);

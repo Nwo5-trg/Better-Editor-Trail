@@ -1,4 +1,6 @@
-﻿
+﻿## v1.0.7
+- **Fixed** some crashes maybe?
+
 ## v1.0.6
 - **Added** use default trail as a bandaid solution to ccdrawnode being weird
 - **Fixed** first click not showing if you died holding
