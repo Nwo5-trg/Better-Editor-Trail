@@ -1,5 +1,4 @@
-﻿
-# Better Editor Trail
+﻿# Better Editor Trail
 A customizable alternative to the vanilla editor trail.
 
 ## Features:

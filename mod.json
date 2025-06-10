@@ -1,85 +1,80 @@
 {
-	"geode": "4.3.0",
+	"geode": "4.5.0",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
-		"mac": "2.2074"
+		"mac": "2.2074",
+		"ios": "2.2074"
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v1.0.8",
+	"version": "v2.0.0",
 	"developer": "Nwo5",
 	"description": "A customizable editor trail alternative.",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
-	"links": {
-		"source": "https://github.com/Nwo5-trg/Better-Editor-Trail"
-	},
+	"links": {"source": "https://github.com/Nwo5-trg/Better-Editor-Trail"},
 	"settings": {
 		"trail-title": {
 			"type": "title",
 			"name": "Trail"
 		},
-		"trail-size": {
+		"trail-size-one": {
 			"type": "float",
-			"name": "Trail Size",
+			"name": "P1 Trail Size",
 			"default": 0.5,
 			"min": 0.1,
 			"max": 10
 		},
-		"trail-interval": {
+		"trail-size-two": {
 			"type": "float",
-			"name": "Trail Interval",
-			"description": "In seconds, 0 is every frame.",
-			"default": 0,
-			"min": 0,
-			"max": 1
-		},
-		"use-default-trail": {
-			"type": "bool",
-			"name": "Use Default Trail",
-			"default": false
+			"name": "P2 Trail Size",
+			"default": 0.5,
+			"min": 0.1,
+			"max": 10
 		},
 		"trail-color-one": {
 			"type": "rgba",
-			"name": "Trail Color One",
+			"name": "P1 Trail Color",
 			"default": [51, 255, 51, 255]
 		},
 		"trail-color-two": {
 			"type": "rgba",
-			"name": "Trail Color Two",
+			"name": "P2 Trail Color",
 			"default": [51, 255, 255, 255]
 		},
 		"use-hold-one": {
 			"type": "bool",
-			"name": "Use Hold For P1",
+			"name": "P1 Show Holding",
+			"description": "change trail color when holding",
 			"default": true
 		},
 		"use-hold-two": {
 			"type": "bool",
-			"name": "Use Hold For P2",
+			"name": "P2 Show Holding",
+			"description": "change trail color when holding",
 			"default": true
 		},
 		"trail-hold-color-one": {
 			"type": "rgba",
-			"name": "Trail Hold Color One",
+			"name": "P1 Trail Hold Color",
 			"default": [151, 255, 151, 255]
 		},
 		"trail-hold-color-two": {
 			"type": "rgba",
-			"name": "Trail Hold Color Two",
+			"name": "P2 Trail Hold Color",
 			"default": [151, 255, 255, 255]
 		},
 		"player-one-for-trail": {
 			"type": "bool",
 			"name": "Use P1",
 			"default": false,
-			"description": "Use P1 color as trail color."
+			"description": "use p1 color as p1 trail color"
 		},
 		"player-two-for-trail": {
 			"type": "bool",
 			"name": "Use P2",
 			"default": false,
-			"description": "Use P2 color as trail color."
+			"description": "use p2 color as p2 trail color"
 		},
 		"clicks-title": {
 			"type": "title",
@@ -94,12 +89,12 @@
 			"type": "string",
 			"name": "Click Shape",
 			"default": "Square",
-			"one-of": ["Circle", "Square"]
+			"one-of": ["Square", "Circle", "Triangle", "Prism"]
 		},
 		"click-direction": {
 			"type": "bool",
 			"name": "Click Direction Indicator",
-			"description": "Instead of click shape, the indicator in platformer mode will be an arrow pointing towards move direction.",
+			"description": "instead of click shape, the indicator in platformer mode will be an arrow pointing towards move direction",
 			"default": true
 		},
 		"click-size": {
@@ -111,12 +106,12 @@
 		},
 		"click-color-one": {
 			"type": "rgba",
-			"name": "Click Color One",
+			"name": "P1 Click Color",
 			"default": [244, 139, 0, 255]
 		},
 		"click-color-two": {
 			"type": "rgba",
-			"name": "Click Color Two",
+			"name": "P2 Click Color",
 			"default": [244, 139, 0, 255]
 		},
 		"releases-title": {
@@ -132,12 +127,12 @@
 			"type": "string",
 			"name": "Release Shape",
 			"default": "Circle",
-			"one-of": ["Circle", "Square"]
+			"one-of": ["Square", "Circle", "Triangle", "Prism"]
 		},
 		"release-direction": {
 			"type": "bool",
 			"name": "Release Direction Indicator",
-			"description": "Instead of release shape, the indicator in platformer mode will be an arrow pointing towards move direction.",
+			"description": "instead of click shape, the indicator in platformer mode will be an arrow pointing towards move direction",
 			"default": true
 		},
 		"release-size": {
@@ -149,12 +144,12 @@
 		},
 		"release-color-one": {
 			"type": "rgba",
-			"name": "Release Color One",
+			"name": "P1 Release Color",
 			"default": [0, 235, 255, 255]
 		},
 		"release-color-two": {
 			"type": "rgba",
-			"name": "Release Color Two",
+			"name": "P2 Release Color",
 			"default": [0, 235, 255, 255]
 		}
 	}
