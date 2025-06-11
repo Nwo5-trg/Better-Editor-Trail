@@ -1,3 +1,6 @@
+## v2.0.2
+- **Fixed** log statement uwasjyrfhweuysdjhz
+
 ## v2.0.1
 - **Fixed** platformer indicators being wonky
 - **Fixed** holding fr fr trust

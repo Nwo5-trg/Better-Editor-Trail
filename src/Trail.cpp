@@ -10,7 +10,6 @@ void updateTrail(LevelEditorLayer* editor) {
     auto p2 = editor->m_player2;
     const auto& p1Points = editor->m_playerPoints;
     const auto& p2PointsVector = editor->m_player2Points;
-    log::error("{}, {}", BetterTrailVars::p1Holding, BetterTrailVars::p2Holding);
     if (p1 && p1Points.size() > 1) {
         auto size = p1Points.size();
         const auto& col = BetterTrailVars::p1Holding ? BetterTrailVars::p1HoldTrailCol : BetterTrailVars::p1TrailCol;
