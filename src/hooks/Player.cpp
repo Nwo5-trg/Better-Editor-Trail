@@ -7,11 +7,14 @@ using namespace geode::prelude;
 
 class $modify(Player, PlayerObject) {
     bool pushButton(PlayerButton p0) {
+        auto holdingLeft = m_holdingLeft; // scuffed but it works
+        auto holdingRight = m_holdingRight;
         auto ret = !PlayerObject::pushButton(p0);
-        if (!m_editorEnabled) return ret;
-        createClick(this, p0);
+        if (!m_editorEnabled) return ret;   
+        if (p0 == PlayerButton::Jump || ((p0 == PlayerButton::Right && !holdingRight) 
+        || (p0 == PlayerButton::Left && !holdingLeft)))createClick(this, p0);
         if (m_isSecondPlayer) BetterTrailVars::p2Holding = true;
-        BetterTrailVars::p1Holding = true;
+        else BetterTrailVars::p1Holding = true;
         return ret;
     }
     
@@ -20,7 +23,7 @@ class $modify(Player, PlayerObject) {
         if (!m_editorEnabled) return ret;
         createRelease(this, p0);
         if (m_isSecondPlayer) BetterTrailVars::p2Holding = isButtonHeld();
-        BetterTrailVars::p1Holding = isButtonHeld();
+        else BetterTrailVars::p1Holding = isButtonHeld();
         return ret;
     }
 

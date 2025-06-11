@@ -1,3 +1,7 @@
+## v2.0.1
+- **Fixed** platformer indicators being wonky
+- **Fixed** holding fr fr trust
+
 ## v2.0.0
 - **Added** rewrite uwu
 - **Added** prolly a million new bugs because this mod refuses to work properly ever :3
