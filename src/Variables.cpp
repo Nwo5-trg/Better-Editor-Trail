@@ -24,12 +24,15 @@ void BetterTrailVars::updateSettings() {
         else clickShape = shapeEnum;
     }
 
+    hideWhenPlaytesting = mod->getSettingValue<bool>("hide-when-playtesting");
     showClicks = mod->getSettingValue<bool>("show-clicks");
     showReleases = mod->getSettingValue<bool>("show-releases");
     p1IndicateHolding = mod->getSettingValue<bool>("use-hold-one");
     p2IndicateHolding = mod->getSettingValue<bool>("use-hold-two");
     showClickDirection = mod->getSettingValue<bool>("click-direction");
     showReleaseDirection = mod->getSettingValue<bool>("release-direction");
+    p1UseColor = mod->getSettingValue<bool>("player-one-for-trail");
+    p2UseColor = mod->getSettingValue<bool>("player-two-for-trail");
 
     p1TrailCol = ccc4FFromccc4B(mod->getSettingValue<ccColor4B>("trail-color-one"));
     p2TrailCol = ccc4FFromccc4B(mod->getSettingValue<ccColor4B>("trail-color-two"));

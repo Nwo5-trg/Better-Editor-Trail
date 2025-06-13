@@ -8,7 +8,7 @@
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v2.0.2",
+	"version": "v2.0.3",
 	"developer": "Nwo5",
 	"description": "A customizable editor trail alternative.",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
@@ -21,14 +21,14 @@
 		"trail-size-one": {
 			"type": "float",
 			"name": "P1 Trail Size",
-			"default": 0.5,
+			"default": 1,
 			"min": 0.1,
 			"max": 10
 		},
 		"trail-size-two": {
 			"type": "float",
 			"name": "P2 Trail Size",
-			"default": 0.5,
+			"default": 1,
 			"min": 0.1,
 			"max": 10
 		},
@@ -75,6 +75,11 @@
 			"name": "Use P2",
 			"default": false,
 			"description": "use p2 color as p2 trail color"
+		},
+		"hide-when-playtesting": {
+			"type": "bool",
+			"name": "Hide When Playtesting",
+			"default": false
 		},
 		"clicks-title": {
 			"type": "title",

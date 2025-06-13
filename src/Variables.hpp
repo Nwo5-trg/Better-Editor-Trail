@@ -17,7 +17,6 @@ namespace BetterTrailVars {
 
     inline int trailSteps = 1;
     inline bool trailRendering = false;
-    inline bool hideTrail = false;
 
     inline bool p1Holding = false;
     inline bool p2Holding = false;
@@ -29,12 +28,15 @@ namespace BetterTrailVars {
     inline float releaseSize;
     inline IndicatorShape clickShape = IndicatorShape::Square;  // fuck enums im too cool for that
     inline IndicatorShape releaseShape = IndicatorShape::Square;
+    inline bool hideWhenPlaytesting = false;
     inline bool showClicks = false;
     inline bool showReleases = false;
     inline bool p1IndicateHolding = false;
     inline bool p2IndicateHolding = false;
     inline bool showClickDirection = false;
     inline bool showReleaseDirection = false;
+    inline bool p1UseColor = false;
+    inline bool p2UseColor = false;
     inline cocos2d::ccColor4F p1TrailCol = cocos2d::ccc4f(1.0f, 1.0f, 1.0f, 1.0f);
     inline cocos2d::ccColor4F p2TrailCol = cocos2d::ccc4f(1.0f, 1.0f, 1.0f, 1.0f);
     inline cocos2d::ccColor4F p1HoldTrailCol = cocos2d::ccc4f(1.0f, 1.0f, 1.0f, 1.0f);

@@ -12,7 +12,8 @@ void updateTrail(LevelEditorLayer* editor) {
     const auto& p2PointsVector = editor->m_player2Points;
     if (p1 && p1Points.size() > 1) {
         auto size = p1Points.size();
-        const auto& col = BetterTrailVars::p1Holding ? BetterTrailVars::p1HoldTrailCol : BetterTrailVars::p1TrailCol;
+        auto col = BetterTrailVars::p1Holding ? BetterTrailVars::p1HoldTrailCol : BetterTrailVars::p1TrailCol;
+        if (BetterTrailVars::p1UseColor) col = ccc4FFromccc3B(p1->m_playerColor1);
         BetterTrailVars::trailDraw->drawSegment(p1Points[size - 2], p1Points[size - 1], BetterTrailVars::p1TrailSize, col);
     }
 
@@ -20,7 +21,8 @@ void updateTrail(LevelEditorLayer* editor) {
         const auto& p2Points = p2PointsVector[p2PointsVector.size() - 1];
         if (p2 && p2Points.size() > 1) {
             auto size = p2Points.size();
-            const auto& col = BetterTrailVars::p2Holding ? BetterTrailVars::p2HoldTrailCol : BetterTrailVars::p2TrailCol;
+            auto col = BetterTrailVars::p2Holding ? BetterTrailVars::p2HoldTrailCol : BetterTrailVars::p2TrailCol;
+            if (BetterTrailVars::p2UseColor) col = ccc4FFromccc3B(p2->m_playerColor1);
             BetterTrailVars::trailDraw->drawSegment(p2Points[size - 2], p2Points[size - 1], BetterTrailVars::p2TrailSize, col);
         }
     }
@@ -35,4 +37,9 @@ void startTrail() {
 
 void stopTrail() {
     BetterTrailVars::trailRendering = false;
+}
+
+void toggleTrail(bool on) {
+    BetterTrailVars::trailDraw->setVisible(on);
+    BetterTrailVars::indicatorDraw->setVisible(on);
 }

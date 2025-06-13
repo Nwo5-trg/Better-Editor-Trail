@@ -4,7 +4,7 @@
 using namespace geode::prelude;
 
 void createClick(PlayerObject* player, PlayerButton button) {
-    if (!BetterTrailVars::showClicks || BetterTrailVars::hideTrail || !BetterTrailVars::trailRendering) return;
+    if (!BetterTrailVars::showClicks || !BetterTrailVars::trailRendering) return;
     auto col = player->m_isSecondPlayer ? BetterTrailVars::p2ClickColor : BetterTrailVars::p1ClickColor;
     auto pos = player->getPosition();
     if (BetterTrailVars::showClickDirection && player->m_isPlatformer) drawArrow(pos, BetterTrailVars::clickSize, button, col);
@@ -12,7 +12,7 @@ void createClick(PlayerObject* player, PlayerButton button) {
 }
 
 void createRelease(PlayerObject* player, PlayerButton button) {
-    if (!BetterTrailVars::showReleases || BetterTrailVars::hideTrail || !BetterTrailVars::trailRendering) return;
+    if (!BetterTrailVars::showReleases || !BetterTrailVars::trailRendering) return;
     auto col = player->m_isSecondPlayer ? BetterTrailVars::p2ReleaseColor : BetterTrailVars::p1ReleaseColor;
     auto pos = player->getPosition();
     if (BetterTrailVars::showReleaseDirection && player->m_isPlatformer) drawArrow(pos, BetterTrailVars::releaseSize, button, col);

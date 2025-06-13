@@ -1,3 +1,12 @@
+## v2.0.3
+- **Added** trail toggle button
+- **Added** tweaked default trail size
+
+- **Removed** toggle trail with hide path
+
+- **Fixed** show hitboxes not working with the mod oopsies
+- **Fixed** use player colors
+
 ## v2.0.2
 - **Fixed** log statement uwasjyrfhweuysdjhz
 

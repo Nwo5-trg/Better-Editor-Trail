@@ -23,12 +23,12 @@ class $modify(Editor, LevelEditorLayer) {
             if (auto layer = typeinfo_cast<CCLayer*>(node->getChildByType<CCNode>(0))) {
                 if (layer->getChildByType<CCDrawNode>(0)) {
                     BetterTrailVars::trailLayer = layer;
-                    layer->getChildByTag(-9999)->setScale(0); // oh yeah and hide vanilla trail (setvisible constantly gets set and opacity doesnt work)
+                   // oh yeah and NOT hide vanilla trail (cuz the grand fuckass robtop draws hitboxes in the same drawnode as the trail (and i think redraws every frame wtf));
                 }
             }
         }
 
-        BetterTrailVars::hideTrail = GameManager::sharedState()->getGameVariable("0152");
+        GameManager::sharedState()->setGameVariable("0152", true); // hide default trail
         GameManager::sharedState()->setGameVariable("0149", false); // hide click indicators
 
 
@@ -55,17 +55,18 @@ class $modify(Editor, LevelEditorLayer) {
 
     void updateDebugDraw() {
         LevelEditorLayer::updateDebugDraw();
-        if (!BetterTrailVars::hideTrail) updateTrail(this);
+        updateTrail(this);
     }
 
     void onPlaytest() {
         LevelEditorLayer::onPlaytest();
-        BetterTrailVars::hideTrail = GameManager::sharedState()->getGameVariable("0152");
         startTrail();
+        if (BetterTrailVars::hideWhenPlaytesting) toggleTrail(false);
     }
 
     void onStopPlaytest() {
         stopTrail();
         LevelEditorLayer::onStopPlaytest();
+        toggleTrail(true);
     }
 };
