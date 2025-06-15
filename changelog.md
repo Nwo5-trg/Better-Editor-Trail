@@ -1,3 +1,18 @@
+## v2.0.4
+-> be me
+
+-> issue gets opened on github
+
+-> its prolly fine
+
+-> read issue
+
+-> i somehow f***ed up so bad that i broke gds input handling
+
+-> how in the robtop did this get accepted
+
+-> push the fix and lose all faith in my modding "abilities"
+
 ## v2.0.3
 - **Added** trail toggle button
 - **Added** tweaked default trail size

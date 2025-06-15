@@ -9,7 +9,7 @@ class $modify(Player, PlayerObject) {
     bool pushButton(PlayerButton p0) {
         auto holdingLeft = m_holdingLeft; // scuffed but it works
         auto holdingRight = m_holdingRight;
-        auto ret = !PlayerObject::pushButton(p0);
+        auto ret = PlayerObject::pushButton(p0);
         if (!m_editorEnabled) return ret;   
         if (p0 == PlayerButton::Jump || ((p0 == PlayerButton::Right && !holdingRight) 
         || (p0 == PlayerButton::Left && !holdingLeft)))createClick(this, p0);
@@ -19,7 +19,7 @@ class $modify(Player, PlayerObject) {
     }
     
     bool releaseButton(PlayerButton p0) {
-        auto ret = !PlayerObject::releaseButton(p0);
+        auto ret = PlayerObject::releaseButton(p0);
         if (!m_editorEnabled) return ret;
         createRelease(this, p0);
         if (m_isSecondPlayer) BetterTrailVars::p2Holding = isButtonHeld();
