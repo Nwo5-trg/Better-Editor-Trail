@@ -50,7 +50,7 @@ class $modify(Editor, LevelEditorLayer) {
         // it fixes all the lag issues to my knowledge with my method so im just gonna use his points
         // it does update really slow normally tho so were just gonna speed that up
         LevelEditorLayer::postUpdate(p0);
-        m_trailTimer = 240;
+        m_trailTimer = BetterTrailVars::trailTimer;
     }
 
     void updateDebugDraw() {

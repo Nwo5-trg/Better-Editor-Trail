@@ -1,3 +1,6 @@
+## v2.0.5
+- **Added** trail timer setting
+
 ## v2.0.4
 -> be me
 
