@@ -1,5 +1,10 @@
-## v2.0.5
+## v2.1.0
 - **Added** trail timer setting
+
+- **Fixed** trail randomly disappearing fr i think
+- **Fixed** kinda the code i didnt wanna completely rewrite cuz i cant be bothered but omg ts was so bad its only been a few months what happened :sob: this alone is enough to justify a minor version bump icl, i couldve done more to make it "more optimized" or wtv but idc
+- **Fixed** node ids
+- **Fixed** credits sorry brittank-
 
 ## v2.0.4
 -> be me

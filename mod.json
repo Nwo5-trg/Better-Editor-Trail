@@ -1,5 +1,5 @@
 {
-	"geode": "4.5.0",
+	"geode": "4.7.0",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -8,11 +8,14 @@
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v2.0.5",
+	"version": "v2.1.0",
 	"developer": "Nwo5",
-	"description": "A customizable editor trail alternative.",
+	"description": "silly trail mod",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
-	"links": {"source": "https://github.com/Nwo5-trg/Better-Editor-Trail"},
+	"links": {
+		"source": "https://github.com/Nwo5-trg/Better-Editor-Trail",
+		"community": "https://discord.gg/AeFeYWGUxZ"
+	},
 	"settings": {
 		"trail-title": {
 			"type": "title",

@@ -1,7 +1,9 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/LevelEditorLayer.hpp>
-#include "../Trail.hpp"
-#include "../Variables.hpp"
+#include "../trail/Trail.hpp"
+#include "../shared/Cache.hpp"
+#include "../shared/Settings.hpp"
+#include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
 
@@ -9,24 +11,14 @@ class $modify(Editor, LevelEditorLayer) {
     bool init(GJGameLevel* p0, bool p1) {
         if (!LevelEditorLayer::init(p0, p1)) return false;
                 
-        // BetterTrailVars::batchLayer = nullptr;
-        BetterTrailVars::trailLayer = nullptr;
-        BetterTrailVars::trailDraw = nullptr;
-        BetterTrailVars::indicatorDraw = nullptr;
+        /// i dont think this is needed but go on
+        Cache::trailLayer = nullptr;
+        Cache::trailDraw = nullptr;
+        Cache::indicatorDraw = nullptr;
 
-        BetterTrailVars::updateSettings();
+        Settings::updateSettings();
 
-        // if (auto shaderLayer = this->getChildByType<ShaderLayer>(0)) BetterTrailVars::batchLayer = shaderLayer->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
-        // else BetterTrailVars::batchLayer = this->getChildByType<CCNode>(1)->getChildByType<CCLayer>(0);
-
-        for (auto node : CCArrayExt<CCNode*>(this->getChildren())) { // find the vanilla trail layer safely or smth
-            if (auto layer = typeinfo_cast<CCLayer*>(node->getChildByType<CCNode>(0))) {
-                if (layer->getChildByType<CCDrawNode>(0)) {
-                    BetterTrailVars::trailLayer = layer;
-                   // oh yeah and NOT hide vanilla trail (cuz the grand fuckass robtop draws hitboxes in the same drawnode as the trail (and i think redraws every frame wtf));
-                }
-            }
-        }
+        Utils::getTrailLayer(this);
 
         GameManager::sharedState()->setGameVariable("0152", true); // hide default trail
         GameManager::sharedState()->setGameVariable("0149", false); // hide click indicators
@@ -36,11 +28,19 @@ class $modify(Editor, LevelEditorLayer) {
             auto draw = CCDrawNode::create();
             draw->setPosition(0.0f, 0.0f);
             draw->setBlendFunc({GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA});
-            draw->setID(i == 0 ? "better-trail-trail" : "better-trail-indicators");
-            BetterTrailVars::trailLayer->addChild(draw);
-            if (i == 0) BetterTrailVars::trailDraw = draw;
-            else BetterTrailVars::indicatorDraw = draw;
+            draw->setID(i == 0 ? "better-trail-trail"_spr : "better-trail-indicators"_spr);
+            Cache::trailLayer->addChild(draw);
+            if (i == 0) Cache::trailDraw = draw;
+            else Cache::indicatorDraw = draw;
         }
+
+        Cache::p1TrailCol = Settings::p1UseColor 
+        ? ccc4FFromccc3B(m_player1->m_playerColor1)
+        : Settings::p1TrailCol;
+
+        Cache::p2TrailCol = Settings::p2UseColor 
+        ? ccc4FFromccc3B(m_player2->m_playerColor2)
+        : Settings::p2TrailCol;
 
         return true;
     }
@@ -49,24 +49,25 @@ class $modify(Editor, LevelEditorLayer) {
         // idk what method robtop uses to update his playerpoints but 
         // it fixes all the lag issues to my knowledge with my method so im just gonna use his points
         // it does update really slow normally tho so were just gonna speed that up
+        /// just say you copied ts from qol mod imo
         LevelEditorLayer::postUpdate(p0);
-        m_trailTimer = BetterTrailVars::trailTimer;
+        m_trailTimer = Settings::trailTimer;
     }
 
     void updateDebugDraw() {
         LevelEditorLayer::updateDebugDraw();
-        updateTrail(this);
+        Trail::updateTrail(this);
     }
 
     void onPlaytest() {
         LevelEditorLayer::onPlaytest();
-        startTrail();
-        if (BetterTrailVars::hideWhenPlaytesting) toggleTrail(false);
+        Trail::startTrail();
+        Trail::toggleTrail(!Settings::hideWhenPlaytesting);
     }
 
     void onStopPlaytest() {
-        stopTrail();
+        Trail::stopTrail();
         LevelEditorLayer::onStopPlaytest();
-        toggleTrail(true);
+        Trail::toggleTrail(true);
     }
 };
