@@ -4,14 +4,49 @@
 using namespace geode::prelude;
 
 namespace Utils {
-    void drawLine(CCDrawNode* drawNode, CCPoint p1, CCPoint p2, float thickness, ccColor4F col) {
-        // see taking like 3 weeks learning opengl payed off for smth 
+    void drawLine(CCDrawNode* drawNode, const CCPoint& p1, const CCPoint& p2, float thickness, const ccColor4F& col) {
+        thickness *= 0.5f;
+
         auto dir = ccpNormalize(p2 - p1);
-        auto perp = ccp(-dir.y, dir.x) * (thickness / 2);
+        auto perp = ccp(-dir.y * thickness, dir.x * thickness);
+
         CCPoint v[] {
-            (p1 + perp), (p2 + perp), (p2 - perp), (p1 - perp)
+            p1 + perp, p2 + perp, p2 - perp, p1 - perp
         };
-        drawNode->drawPolygon(v, 4, col, 0.0f, col);
+        drawNode->drawPolygon(v, 4, col, std::numeric_limits<float>::epsilon(), col);
+    }
+
+    void drawAngle(CCDrawNode* drawNode, const CCPoint& p0, const CCPoint& p1, const CCPoint& p2, float thickness, const ccColor4F& col) {
+        thickness *= 0.5f;
+
+        auto dir0 = ccpNormalize(p1 - p0);
+        auto dir1 = ccpNormalize(p2 - p1);
+        auto perp1 = ccp(-dir1.y * thickness, dir1.x * thickness);
+
+        if (p0 == p1 || dir0 == dir1) {
+            CCPoint v[] {
+                p1 + perp1, p2 + perp1, p2 - perp1, p1 - perp1,
+            };
+            drawNode->drawPolygon(v, 4, col, std::numeric_limits<float>::epsilon(), col);
+            return;
+        }
+
+        auto perp0 = ccp(-dir0.y * thickness, dir0.x * thickness);
+
+        if (std::atan2f(dir0.cross(dir1), dir0.dot(dir1)) > 0.0f) {
+            CCPoint v[] {
+                p1 + perp1, p2 + perp1, p2 - perp1, p1 - perp1,
+                p1 - perp0
+            };
+            drawNode->drawPolygon(v, 5, col, std::numeric_limits<float>::epsilon(), col);
+        }
+        else {
+            CCPoint v[] {
+                p1 + perp0,
+                p1 + perp1, p2 + perp1, p2 - perp1, p1 - perp1
+            };
+            drawNode->drawPolygon(v, 5, col, std::numeric_limits<float>::epsilon(), col);
+        }
     }
 
     void getTrailLayer(LevelEditorLayer* editor) {

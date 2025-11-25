@@ -16,7 +16,6 @@ namespace Settings {
     inline bool p2UseColor;
     inline IndicatorShape clickShape = IndicatorShape::Square;  // fuck enums im too cool for that
     inline IndicatorShape releaseShape = IndicatorShape::Square; // proceeds to use enums-
-    inline float trailTimer;
     inline float p1TrailSize;
     inline float p2TrailSize;
     inline float clickSize;

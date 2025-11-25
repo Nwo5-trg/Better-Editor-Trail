@@ -1,17 +1,22 @@
 #pragma once
 
 namespace Cache {
+    struct PlayerState {
+        bool moving = false;
+        bool jump = false;
+        bool left = false;
+        bool right = false;
+        cocos2d::CCPoint pos = ccp(0.0f, 0.0f);
+        cocos2d::CCPoint prevPos = ccp(0.0f, 0.0f);
+    };
+
     inline cocos2d::CCLayer* trailLayer = nullptr;
 
     inline cocos2d::CCDrawNode* trailDraw = nullptr;
     inline cocos2d::CCDrawNode* indicatorDraw = nullptr;
 
-    /// lowkey why do i have this, wtv idrc
-    inline int trailSteps = 0;
+    inline PlayerState playerStates[2];
     inline bool trailRendering = false;
-
-    inline bool p1Holding = false;
-    inline bool p2Holding = false;
 
     inline cocos2d::ccColor4F p1TrailCol;
     inline cocos2d::ccColor4F p2TrailCol;

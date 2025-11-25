@@ -10,7 +10,7 @@ using namespace geode::prelude;
 class $modify(Editor, LevelEditorLayer) {
     bool init(GJGameLevel* p0, bool p1) {
         if (!LevelEditorLayer::init(p0, p1)) return false;
-                
+
         /// i dont think this is needed but go on
         Cache::trailLayer = nullptr;
         Cache::trailDraw = nullptr;
@@ -23,46 +23,69 @@ class $modify(Editor, LevelEditorLayer) {
         GameManager::sharedState()->setGameVariable("0152", true); // hide default trail
         GameManager::sharedState()->setGameVariable("0149", false); // hide click indicators
 
-
-        for (int i = 0; i < 2; i++) {
-            auto draw = CCDrawNode::create();
+        CCDrawNode* draws[2];
+        for (auto& draw : draws) {
+            draw = CCDrawNode::create();
             draw->setPosition(0.0f, 0.0f);
             draw->setBlendFunc({GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA});
-            draw->setID(i == 0 ? "better-trail-trail"_spr : "better-trail-indicators"_spr);
+            draw->m_bUseArea = false;
             Cache::trailLayer->addChild(draw);
-            if (i == 0) Cache::trailDraw = draw;
-            else Cache::indicatorDraw = draw;
         }
+        Cache::trailDraw = draws[0];
+        Cache::indicatorDraw = draws[1];
 
-        Cache::p1TrailCol = Settings::p1UseColor 
-        ? ccc4FFromccc3B(m_player1->m_playerColor1)
-        : Settings::p1TrailCol;
+        Cache::trailDraw->setID("better-trail-trail"_spr);
+        Cache::indicatorDraw->setID("better-trail-indicators"_spr);
 
-        Cache::p2TrailCol = Settings::p2UseColor 
-        ? ccc4FFromccc3B(m_player2->m_playerColor2)
-        : Settings::p2TrailCol;
+        Cache::p1TrailCol = Settings::p1UseColor
+            ? ccc4FFromccc3B(m_player1->m_playerColor1)
+            : Settings::p1TrailCol;
+
+        Cache::p2TrailCol = Settings::p2UseColor
+            ? ccc4FFromccc3B(m_player2->m_playerColor2)
+            : Settings::p2TrailCol;
 
         return true;
     }
 
     void postUpdate(float p0) {
-        // idk what method robtop uses to update his playerpoints but 
-        // it fixes all the lag issues to my knowledge with my method so im just gonna use his points
-        // it does update really slow normally tho so were just gonna speed that up
-        /// just say you copied ts from qol mod imo
+        if (m_player1) {
+            if (m_player1->m_wasTeleported) {
+                Cache::playerStates[0].moving = false;
+                Cache::playerStates[0].pos = m_player1->getPosition();
+                Cache::playerStates[0].prevPos = Cache::playerStates[0].pos;
+            }
+            Trail::endMove(m_player1, static_cast<PlayerButton>(0));
+        }
+        if (m_player2) {
+            if (m_player2->m_wasTeleported) {
+                Cache::playerStates[1].moving = false;
+                Cache::playerStates[1].pos = m_player2->getPosition();
+                Cache::playerStates[1].prevPos = Cache::playerStates[1].pos;
+            }
+            Trail::endMove(m_player2, static_cast<PlayerButton>(0));
+        }
         LevelEditorLayer::postUpdate(p0);
-        m_trailTimer = Settings::trailTimer;
-    }
-
-    void updateDebugDraw() {
-        LevelEditorLayer::updateDebugDraw();
-        Trail::updateTrail(this);
     }
 
     void onPlaytest() {
         LevelEditorLayer::onPlaytest();
         Trail::startTrail();
         Trail::toggleTrail(!Settings::hideWhenPlaytesting);
+
+        Cache::playerStates[0].moving = false;
+        Cache::playerStates[0].jump = false;
+        Cache::playerStates[0].left = false;
+        Cache::playerStates[0].right = false;
+        Cache::playerStates[0].pos = m_player1 ? m_player1->getPosition() : ccp(0.0f, 0.0f);
+        Cache::playerStates[0].prevPos = Cache::playerStates[0].pos;
+
+        Cache::playerStates[1].moving = false;
+        Cache::playerStates[1].jump = false;
+        Cache::playerStates[1].left = false;
+        Cache::playerStates[1].right = false;
+        Cache::playerStates[1].pos = m_player2 ? m_player2->getPosition() : ccp(0.0f, 0.0f);
+        Cache::playerStates[1].prevPos = Cache::playerStates[1].pos;
     }
 
     void onStopPlaytest() {

@@ -14,7 +14,7 @@ namespace Trail {
         if (Settings::showClickDirection && player->m_isPlatformer) {
             drawArrow(player->getPosition(), Settings::clickSize, button, col);
         }
-        else {
+        else if (player->m_isPlatformer || button == PlayerButton::Jump) {
             drawIndicator(player->getPosition(), Settings::clickSize, Settings::clickShape, col);
         }
     }
@@ -27,12 +27,12 @@ namespace Trail {
         if (Settings::showReleaseDirection && player->m_isPlatformer) {
             drawArrow(player->getPosition(), Settings::releaseSize, button, col);
         }
-        else {
+        else if (player->m_isPlatformer || button == PlayerButton::Jump) {
             drawIndicator(player->getPosition(), Settings::releaseSize, Settings::releaseShape, col);
         }
     }
 
-    void drawIndicator(CCPoint pos, float size, IndicatorShape shape, const ccColor4F& col) {
+    void drawIndicator(const CCPoint& pos, float size, IndicatorShape shape, const ccColor4F& col) {
         switch (shape) {
             case IndicatorShape::Square: {
                 Cache::indicatorDraw->drawDot(pos, size, col);
@@ -53,34 +53,34 @@ namespace Trail {
         }
     }
 
-    void drawArrow(CCPoint pos, float size, PlayerButton button, const ccColor4F& col) {
-        float half = size / 2;
+    void drawArrow(const CCPoint& pos, float size, PlayerButton button, const ccColor4F& col) {
+        float half = size * 0.5f * std::sqrt(2.0f) * 0.5f;
         float offset = size * 1.5f;
         float tip = offset * 2;
 
         switch (button) {
             case PlayerButton::Jump: {
-                Utils::drawLine(Cache::indicatorDraw, {pos.x, pos.y - offset}, {pos.x, pos.y + offset}, half, col);
-                Utils::drawLine(Cache::indicatorDraw, {pos.x, pos.y + offset}, {pos.x + offset, pos.y}, half, col);
-                Utils::drawLine(Cache::indicatorDraw, {pos.x, pos.y + offset}, {pos.x - offset, pos.y}, half, col);
+                Utils::drawLine(Cache::indicatorDraw, {pos.x, pos.y - offset}, {pos.x, pos.y + offset}, size, col);
+                Utils::drawLine(Cache::indicatorDraw, {pos.x - half, pos.y + offset + half}, {pos.x + offset, pos.y}, size, col);
+                Utils::drawLine(Cache::indicatorDraw, {pos.x + half, pos.y + offset + half}, {pos.x - offset, pos.y}, size, col);
                 break;
             }
             case PlayerButton::Right: {
-                Utils::drawLine(Cache::indicatorDraw, pos, {pos.x + tip, pos.y}, half, col);
-                Utils::drawLine(Cache::indicatorDraw, {pos.x + tip, pos.y}, {pos.x + offset, pos.y + offset}, half, col);
-                Utils::drawLine(Cache::indicatorDraw, {pos.x + tip, pos.y}, {pos.x + offset, pos.y - offset}, half, col);
+                Utils::drawLine(Cache::indicatorDraw, pos, {pos.x + tip, pos.y}, size, col);
+                Utils::drawLine(Cache::indicatorDraw, {pos.x + tip + half, pos.y - half}, {pos.x + offset, pos.y + offset}, size, col);
+                Utils::drawLine(Cache::indicatorDraw, {pos.x + tip + half, pos.y + half}, {pos.x + offset, pos.y - offset}, size, col);
                 break;
             }
             case PlayerButton::Left: {
-                Utils::drawLine(Cache::indicatorDraw, pos, {pos.x - tip, pos.y}, half, col);
-                Utils::drawLine(Cache::indicatorDraw, {pos.x - tip, pos.y}, {pos.x - offset, pos.y + offset}, half, col);
-                Utils::drawLine(Cache::indicatorDraw, {pos.x - tip, pos.y}, {pos.x - offset, pos.y - offset}, half, col);
+                Utils::drawLine(Cache::indicatorDraw, pos, {pos.x - tip, pos.y}, size, col);
+                Utils::drawLine(Cache::indicatorDraw, {pos.x - tip - half, pos.y - half}, {pos.x - offset, pos.y + offset}, size, col);
+                Utils::drawLine(Cache::indicatorDraw, {pos.x - tip - half, pos.y + half}, {pos.x - offset, pos.y - offset}, size, col);
                 break;
             }
         }
     }
 
-    void drawTriangle(CCPoint pos, float size, const ccColor4F& col) {
+    void drawTriangle(const CCPoint& pos, float size, const ccColor4F& col) {
         CCPoint polygon[] = {
             {pos.x - size, pos.y - size},
             {pos.x + size, pos.y - size},
@@ -90,7 +90,7 @@ namespace Trail {
         Cache::indicatorDraw->drawPolygon(polygon, 3, col, 0.0f, col);
     }
 
-    void drawPrism(CCPoint pos, float size, const ccColor4F& col) {
+    void drawPrism(const CCPoint& pos, float size, const ccColor4F& col) {
         auto halfSize = size / 2;
 
         CCPoint polygon[] = {

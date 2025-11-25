@@ -6,7 +6,6 @@ namespace Settings {
     void updateSettings() {
         auto mod = Mod::get();
 
-        trailTimer = mod->getSettingValue<double>("trail-timer");
         p1TrailSize = mod->getSettingValue<double>("trail-size-one");
         p2TrailSize = mod->getSettingValue<double>("trail-size-two");
         clickSize = mod->getSettingValue<double>("click-size");
