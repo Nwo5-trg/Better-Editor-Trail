@@ -1,14 +1,14 @@
 {
-	"geode": "4.10.0",
+	"geode": "5.1.0",
 	"gd": {
-		"win": "2.2074",
-		"android": "2.2074",
-		"mac": "2.2074",
-		"ios": "2.2074"
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v2.1.1",
+	"version": "v3.0.0",
 	"developer": "Nwo5",
 	"description": "silly trail mod",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
