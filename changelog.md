@@ -1,3 +1,8 @@
+## v3.0.0
+merge pr (ty bluemoon or wtv name u prefer sowwy) and bump version
+
+completely untested but a lot of ppl want better trail do there ill make my own rewrite eventually
+
 ## v2.1.1
 - **Fixed** segfault maybe reported by brittank
 
