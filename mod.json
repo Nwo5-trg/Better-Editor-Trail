@@ -1,5 +1,5 @@
 {
-	"geode": "5.1.0",
+	"geode": "5.7.1",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,7 +8,7 @@
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v3.0.0",
+	"version": "v4.0.0",
 	"developer": "Nwo5",
 	"description": "silly trail mod",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
@@ -16,149 +16,341 @@
 		"source": "https://github.com/Nwo5-trg/Better-Editor-Trail",
 		"community": "https://discord.gg/AeFeYWGUxZ"
 	},
+	"dependencies": {
+		"nwo5.silly-api": ">=1.3.0"
+	},
+	"resources": {
+		"sprites": ["resources/*.png"]
+	},
 	"settings": {
+		"general-title": {
+			"type": "title",
+			"name": "General"
+		},
+		"general-enabled": {
+			"type": "bool",
+			"name": "Enabled",
+			"default": true
+		},
+		"general-settings-button": {
+			"type": "bool",
+			"name": "Settings Button",
+			"description": "have a button in editor pause menu to open mod settings",
+			"default": false
+		},
+		"general-scale-with-zoom": {
+			"type": "bool",
+			"name": "Scale With Zoom",
+			"default": false
+		},
+		"general-focus-player-2": {
+			"type": "bool",
+			"name": "Focus Player 2",
+			"description": "draw player 2 trail above player 1",
+			"default": false
+		},
 		"trail-title": {
 			"type": "title",
 			"name": "Trail"
 		},
-		"trail-size-one": {
-			"type": "float",
-			"name": "P1 Trail Size",
-			"default": 1,
-			"min": 0.1,
-			"max": 10
-		},
-		"trail-size-two": {
-			"type": "float",
-			"name": "P2 Trail Size",
-			"default": 1,
-			"min": 0.1,
-			"max": 10
-		},
-		"trail-color-one": {
-			"type": "rgba",
-			"name": "P1 Trail Color",
-			"default": [51, 255, 51, 255]
-		},
-		"trail-color-two": {
-			"type": "rgba",
-			"name": "P2 Trail Color",
-			"default": [51, 255, 255, 255]
-		},
-		"use-hold-one": {
+		"trail-show-holding": {
 			"type": "bool",
-			"name": "P1 Show Holding",
-			"description": "change trail color when holding",
+			"name": "Show Holding",
 			"default": true
 		},
-		"use-hold-two": {
+		"trail-hide-in-playtest": {
 			"type": "bool",
-			"name": "P2 Show Holding",
-			"description": "change trail color when holding",
-			"default": true
-		},
-		"trail-hold-color-one": {
-			"type": "rgba",
-			"name": "P1 Trail Hold Color",
-			"default": [151, 255, 151, 255]
-		},
-		"trail-hold-color-two": {
-			"type": "rgba",
-			"name": "P2 Trail Hold Color",
-			"default": [151, 255, 255, 255]
-		},
-		"player-one-for-trail": {
-			"type": "bool",
-			"name": "Use P1",
-			"default": false,
-			"description": "use p1 color as p1 trail color"
-		},
-		"player-two-for-trail": {
-			"type": "bool",
-			"name": "Use P2",
-			"default": false,
-			"description": "use p2 color as p2 trail color"
-		},
-		"hide-when-playtesting": {
-			"type": "bool",
-			"name": "Hide When Playtesting",
+			"name": "Hide In Playtest",
 			"default": false
 		},
-		"clicks-title": {
-			"type": "title",
-			"name": "Clicks"
-		},
-		"show-clicks": {
-			"type": "bool",
-			"name": "Show Clicks",
-			"default": true
-		},
-		"click-shape": {
+		"trail-update-method": {
 			"type": "string",
-			"name": "Click Shape",
-			"default": "Square",
-			"one-of": ["Square", "Circle", "Triangle", "Prism"]
+			"name": "Update Method",
+			"one-of": ["Post Update", "Game Tick"],
+			"default": "Post Update",
+			"description": "if set to trail timer, trail points will update like vanilla*, otherwise trail points will update according to tps"
 		},
-		"click-direction": {
+		"p1-trail-title": {
+			"type": "title",
+			"name": "P1 Trail"
+		},
+		"p1-trail-size": {
+			"type": "float",
+			"name": "Size",
+			"default": 1.0,
+			"min": 0.01,
+			"max": 100
+		},
+		"p1-trail-color": {
+			"type": "rgba",
+			"name": "Color",
+			"default": [51, 255, 51, 255]
+		},
+		"p1-trail-hold-color": {
+			"type": "rgba",
+			"name": "Hold Color",
+			"default": [151, 255, 151, 255]
+		},
+		"p2-trail-title": {
+			"type": "title",
+			"name": "P2 Trail"
+		},
+		"p2-trail-size": {
+			"type": "float",
+			"name": "Size",
+			"default": 1.0,
+			"min": 0.01,
+			"max": 100
+		},
+		"p2-trail-color": {
+			"type": "rgba",
+			"name": "Color",
+			"default": [51, 255, 255, 255]
+		},
+		"p2-trail-hold-color": {
+			"type": "rgba",
+			"name": "Hold Color",
+			"default": [151, 255, 255, 255]
+		},
+		"indicators-title": {
+			"type": "title",
+			"name": "Indicators"
+		},
+		"indicators-enabled": {
 			"type": "bool",
-			"name": "Click Direction Indicator",
-			"description": "instead of click shape, the indicator in platformer mode will be an arrow pointing towards move direction",
+			"name": "Enabled",
 			"default": true
 		},
-		"click-size": {
-			"type": "float",
-			"name": "Click Size",
-			"default": 2,
-			"min": 0.1,
-			"max": 10
-		},
-		"click-color-one": {
-			"type": "rgba",
-			"name": "P1 Click Color",
-			"default": [244, 139, 0, 255]
-		},
-		"click-color-two": {
-			"type": "rgba",
-			"name": "P2 Click Color",
-			"default": [244, 139, 0, 255]
-		},
-		"releases-title": {
-			"type": "title",
-			"name": "Releases"
-		},
-		"show-releases": {
+		"indicators-show-releases": {
 			"type": "bool",
 			"name": "Show Releases",
 			"default": true
 		},
-		"release-shape": {
-			"type": "string",
-			"name": "Release Shape",
-			"default": "Circle",
-			"one-of": ["Square", "Circle", "Triangle", "Prism"]
-		},
-		"release-direction": {
+		"indicators-spider-fix": {
 			"type": "bool",
-			"name": "Release Direction Indicator",
-			"description": "instead of click shape, the indicator in platformer mode will be an arrow pointing towards move direction",
+			"name": "Spider Fix (Indicator Before Jump)",
+			"description": "create indicator before jump is updated (eg first thing after a click is handled; before the game does a jump/orb click)",
 			"default": true
 		},
-		"release-size": {
+		"p1-indicators-title": {
+			"type": "title",
+			"name": "P1 Indicators"
+		},
+		"p1-indicators-click-size": {
+			"type": "float",
+			"name": "Click Size",
+			"default": 2.5,
+			"min": 0.01,
+			"max": 100
+		},
+		"p1-indicators-click-color": {
+			"type": "rgba",
+			"name": "Click Color",
+			"default": [244, 139, 0, 255]
+		},
+		"p1-indicators-click-shape": {
+			"type": "string",
+			"name": "Click Shape",
+			"one-of": ["Square", "Circle", "Triangle", "Prism"],
+			"default": "Square"
+		},
+		"p1-indicators-release-size": {
 			"type": "float",
 			"name": "Release Size",
-			"default": 1.5,
+			"default": 2.5,
+			"min": 0.01,
+			"max": 100
+		},
+		"p1-indicators-release-color": {
+			"type": "rgba",
+			"name": "Release Color",
+			"default": [0, 235, 255, 255]
+		},
+		"p1-indicators-release-shape": {
+			"type": "string",
+			"name": "Release Shape",
+			"one-of": ["Square", "Circle", "Triangle", "Prism"],
+			"default": "Circle"
+		},
+		"p2-indicators-title": {
+			"type": "title",
+			"name": "P2 Indicators"
+		},
+		"p2-indicators-click-size": {
+			"type": "float",
+			"name": "Click Size",
+			"default": 2.5,
+			"min": 0.01,
+			"max": 100
+		},
+		"p2-indicators-click-color": {
+			"type": "rgba",
+			"name": "Click Color",
+			"default": [244, 139, 0, 255]
+		},
+		"p2-indicators-click-shape": {
+			"type": "string",
+			"name": "Click Shape",
+			"one-of": ["Square", "Circle", "Triangle", "Prism"],
+			"default": "Square"
+		},
+		"p2-indicators-release-size": {
+			"type": "float",
+			"name": "Release Size",
+			"default": 2.5,
+			"min": 0.01,
+			"max": 100
+		},
+		"p2-indicators-release-color": {
+			"type": "rgba",
+			"name": "Release Color",
+			"default": [0, 235, 255, 255]
+		},
+		"p2-indicators-release-shape": {
+			"type": "string",
+			"name": "Release Shape",
+			"one-of": ["Square", "Circle", "Triangle", "Prism"],
+			"default": "Circle"
+		},
+		"hitboxes-title": {
+			"type": "title",
+			"name": "Hitboxes"
+		},
+		"hitboxes-enabled": {
+			"type": "bool",
+			"name": "Enabled",
+			"default": false
+		},
+		"hitboxes-keybind": {
+			"type": "keybind",
+			"name": "Show Hitboxes",
+			"default": "Shift+H"
+		},
+		"hitboxes-inner-hitbox": {
+			"type": "bool",
+			"name": "Inner Hitbox",
+			"default": true
+		},
+		"hitboxes-sync-show-hitboxes": {
+			"type": "bool",
+			"name": "Sync Show Hitboxes",
+			"description": "the game variable, not ur mod menu",
+			"default": false
+		},
+		"hitboxes-dont-scale-with-zoom": {
+			"type": "bool",
+			"name": "Dont Scale With Zoom",
+			"description": "dont scale hitboxes if scale with zoom is enabled",
+			"default": false
+		},
+		"p1-hitboxes-title": {
+			"type": "title",
+			"name": "P1 Hitboxes"
+		},
+		"p1-hitboxes-thickness": {
+			"type": "float",
+			"name": "Thickness",
+			"default": 1,
+			"min": 0.001,
+			"max": 100
+		},
+		"p1-hitboxes-color": {
+			"type": "rgba",
+			"name": "Color",
+			"default": [255, 0, 0, 255]
+		},
+		"p1-hitboxes-fill-opacity": {
+			"type": "float",
+			"name": "Fill Opacity",
+			"default": 0,
+			"min": 0,
+			"max": 1
+		},
+		"p1-hitboxes-inner-color": {
+			"type": "rgba",
+			"name": "Inner Color",
+			"default": [0, 255, 0, 255]
+		},
+		"p1-hitboxes-inner-thickness": {
+			"type": "float",
+			"name": "Inner Thickness",
+			"default": 1,
+			"min": 0.001,
+			"max": 100
+		},
+		"p1-hitboxes-inner-fill-opacity": {
+			"type": "float",
+			"name": "Inner Fill Opacity",
+			"default": 0,
+			"min": 0,
+			"max": 1
+		},
+		"p2-hitboxes-title": {
+			"type": "title",
+			"name": "P2 Hitboxes"
+		},
+		"p2-hitboxes-thickness": {
+			"type": "float",
+			"name": "Thickness",
+			"default": 1,
+			"min": 0.001,
+			"max": 100
+		},
+		"p2-hitboxes-color": {
+			"type": "rgba",
+			"name": "Color",
+			"default": [255, 0, 0, 255]
+		},
+		"p2-hitboxes-fill-opacity": {
+			"type": "float",
+			"name": "Fill Opacity",
+			"default": 0,
+			"min": 0,
+			"max": 1
+		},
+		"p2-hitboxes-inner-thickness": {
+			"type": "float",
+			"name": "Inner Thickness",
+			"default": 1,
+			"min": 0.001,
+			"max": 100
+		},
+		"p2-hitboxes-inner-color": {
+			"type": "rgba",
+			"name": "Inner Color",
+			"default": [0, 255, 0, 255]
+		},
+		"p2-hitboxes-inner-fill-opacity": {
+			"type": "float",
+			"name": "Inner Fill Opacity",
+			"default": 0,
+			"min": 0,
+			"max": 1
+		},
+		"extra-title": {
+			"type": "title",
+			"name": "Extra"
+		},
+		"extra-chroma": {
+			"type": "bool",
+			"name": "Chroma",
+			"description": "u might need to adjust colors a bit since it tints the whole drawnode sorry not sorry",
+			"default": false
+		},
+		"extra-chroma-speed": {
+			"type": "float",
+			"name": "Sayo Device Sensitivity",
+			"description": "RGB LG TV USB-C AC/DC+",
+			"default": 2,
 			"min": 0.1,
-			"max": 10
+			"max": 1000
 		},
-		"release-color-one": {
-			"type": "rgba",
-			"name": "P1 Release Color",
-			"default": [0, 235, 255, 255]
-		},
-		"release-color-two": {
-			"type": "rgba",
-			"name": "P2 Release Color",
-			"default": [0, 235, 255, 255]
+		"extra-chroma-saturation": {
+			"type": "float",
+			"name": "Sayo Device Screen Brightness",
+			"default": 0.5,
+			"min": 0,
+			"max": 1
 		}
 	}
 }

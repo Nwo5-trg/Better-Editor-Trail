@@ -1,3 +1,6 @@
+## v4.0.0
+the rewrite eventually
+
 ## v3.0.0
 merge pr (ty bluemoon or wtv name u prefer sowwy) and bump version
 
