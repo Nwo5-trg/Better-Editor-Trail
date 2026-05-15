@@ -1,6 +1,6 @@
 #include <Geode/modify/LevelEditorLayer.hpp>
-#include "../trail/trail.hpp"
-#include "../settings.hpp"
+#include <trail/trail.hpp>
+#include <settings.hpp>
 
 using namespace geode::prelude;
 

@@ -1,6 +1,6 @@
 #include <Geode/modify/GJBaseGameLayer.hpp>
-#include "../trail/trail.hpp"
-#include "../settings.hpp"
+#include <trail/trail.hpp>
+#include <settings.hpp>
 
 using namespace geode::prelude;
 

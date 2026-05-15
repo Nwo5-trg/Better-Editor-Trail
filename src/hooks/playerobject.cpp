@@ -1,7 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/PlayerObject.hpp>
-#include "../trail/trail.hpp"
-#include "../settings.hpp"
+#include <trail/trail.hpp>
+#include <settings.hpp>
 
 using namespace geode::prelude;
 

@@ -1,7 +1,7 @@
 #include <Geode/modify/EditorPauseLayer.hpp>
 #include <Geode/ui/GeodeUI.hpp>
-#include "../settings.hpp"
-#include "../utils.hpp"
+#include <settings.hpp>
+#include <utils.hpp>
 
 using namespace geode::prelude;
 
