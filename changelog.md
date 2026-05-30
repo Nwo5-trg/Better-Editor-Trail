@@ -1,3 +1,6 @@
+## v4.0.1
+- **Fixed** show holding setting
+
 ## v4.0.0
 the rewrite eventually
 
@@ -53,7 +56,7 @@ completely untested but a lot of ppl want better trail do there ill make my own 
 - **Added** prolly a million new bugs because this mod refuses to work properly ever :3
 - **Added** ios support
 - **Added** more shapes because the geode user base loves playing with them
-- **Added** seperate trail sizes
+- **Added** separate trail sizes
 - **Added** prolly more optimised now even tho i doubt that was an issue
 - **Added** trail toggles with hide path now
 
@@ -78,7 +81,7 @@ completely untested but a lot of ppl want better trail do there ill make my own 
 - **Fixed** first click not showing if you died holding
 
 ## v1.0.5
-- **Added** new formating for changelog :3
+- **Added** new formatting for changelog :3
 
 - **Fixed** p2 trail not rendering on android (hopefully) (reported by *JohnnyCena123*) (***#freejohnnycena123***)
 - **Fixed** release indicators appearing on playtest stop

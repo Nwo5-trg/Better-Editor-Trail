@@ -61,7 +61,7 @@ namespace BetterEditorTrail {
             const auto& state = player2 ? m_player2State : m_player1State;
 
             const auto col = color_cast<ccColor4F>(player2 ? Settings::p2TrailColor.get() : Settings::p1TrailColor);
-            const auto holdCol = color_cast<ccColor4F>(player2 ? Settings::p2TrailHoldColor.get() : Settings::p1TrailHoldColor);
+            const auto holdCol = Settings::showHolding ? color_cast<ccColor4F>(player2 ? Settings::p2TrailHoldColor.get() : Settings::p1TrailHoldColor) : col;
             const auto size = (player2 ? Settings::p2TrailSize.get() : Settings::p1TrailSize.get()) / zoomMult;
 
             std::optional<CCPoint> segmentStart = std::nullopt;

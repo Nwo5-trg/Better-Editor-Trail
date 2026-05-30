@@ -8,7 +8,7 @@
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v4.0.0",
+	"version": "v4.0.1",
 	"developer": "Nwo5",
 	"description": "silly trail mod",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
@@ -17,7 +17,7 @@
 		"community": "https://discord.gg/AeFeYWGUxZ"
 	},
 	"dependencies": {
-		"nwo5.silly-api": ">=1.3.0"
+		"nwo5.silly-api": ">=1.4.1"
 	},
 	"resources": {
 		"sprites": ["resources/*.png"]
