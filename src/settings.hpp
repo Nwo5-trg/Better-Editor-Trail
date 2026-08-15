@@ -25,6 +25,7 @@ namespace Settings {
     inline Setting<bool> indicatorsEnabled{"indicators-enabled"};
     inline Setting<bool> showReleases{"indicators-show-releases"};
     inline Setting<bool> spiderFix{"indicators-spider-fix"};
+    inline Setting<bool> directionalIndicators{"indicators-directional-indicators"};
 
     inline Setting<float> p1ClickSize{"p1-indicators-click-size"};
     inline Setting<cocos2d::ccColor4B> p1ClickColor{"p1-indicators-click-color"};

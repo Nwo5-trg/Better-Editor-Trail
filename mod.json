@@ -1,5 +1,5 @@
 {
-	"geode": "5.7.1",
+	"geode": "5.8.2",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,7 +8,7 @@
 	},
 	"id": "nwo5.better_editor_trail",
 	"name": "Better Editor Trail",
-	"version": "v4.0.1",
+	"version": "v4.1.0",
 	"developer": "Nwo5",
 	"description": "silly trail mod",
 	"tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
@@ -17,7 +17,7 @@
 		"community": "https://discord.gg/AeFeYWGUxZ"
 	},
 	"dependencies": {
-		"nwo5.silly-api": ">=1.4.1"
+		"nwo5.silly-api": ">=1.10.5"
 	},
 	"resources": {
 		"sprites": ["resources/*.png"]
@@ -130,6 +130,12 @@
 			"type": "bool",
 			"name": "Spider Fix (Indicator Before Jump)",
 			"description": "create indicator before jump is updated (eg first thing after a click is handled; before the game does a jump/orb click)",
+			"default": true
+		},
+		"indicators-directional-indicators": {
+			"type": "bool",
+			"name": "Directional Indicators",
+			"description": "replace indicator dots with arrows in platformer mode",
 			"default": true
 		},
 		"p1-indicators-title": {

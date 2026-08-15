@@ -105,7 +105,7 @@ namespace BetterEditorTrail {
                 const auto& col = point.release ? releaseCol : clickCol;
                 const auto size = point.release ? releaseSize : clickSize;
 
-                if (point.type == InputType::Normal) {
+                if (point.type == InputType::Normal || !Settings::directionalIndicators) {
                     switch (point.release ? releaseShape : clickShape) {
                         case IndicatorShape::Square: {
                             m_draw->drawDot(point.pos, size, col);
