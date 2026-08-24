@@ -18,14 +18,13 @@ class $modify(HookedLevelEditorLayer, LevelEditorLayer) {
             return false;
         }
 
-        m_fields->trail = ui::node(Setup(EditorTrail::create())
+        m_fields->trail = Setup(EditorTrail::create())
             .id("better-editor-trail"_spr)
             .pos(CCPointZero)
             .order(1403)
-            .parent(m_debugDrawNode->getParent())
-        );
+            .parent(m_debugDrawNode->getParent());
 
-        nwo5::utils::setupKeybind(this, "hitboxes-keybind", [this] (const auto&, bool pDown, auto, auto) {
+        misc::setupKeybind(this, "hitboxes-keybind", [this] (const auto&, bool pDown, auto, auto) {
             if (pDown) {
                 Settings::hitboxesEnabled = !Settings::hitboxesEnabled;
             }

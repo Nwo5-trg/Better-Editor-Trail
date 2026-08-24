@@ -9,11 +9,10 @@ namespace BetterEditorTrail {
             return false;
         }
 
-        m_draw = ui::node(Setup(SillyDrawNode::create())
+        m_draw = Setup(SillyDrawNode::create())
             .id("draw-node"_spr)
             .pos(CCPointZero)
-            .parent(this)
-        );
+            .parent(this);
 
         reset();
 
@@ -92,10 +91,10 @@ namespace BetterEditorTrail {
 
             const auto clickSize = (player2 ? Settings::p2ClickSize.get() : Settings::p1ClickSize.get()) / zoomMult;
             const auto clickCol = color_cast<ccColor4F>(player2 ? Settings::p2ClickColor.get() : Settings::p1ClickColor);
-            const auto clickShape = Utils::indicatorShapeFromString(player2 ? Settings::p2ClickShape.get() : Settings::p1ClickShape.get());
+            const auto clickShape = BetterEditorTrail::indicatorShapeFromString(player2 ? Settings::p2ClickShape.get() : Settings::p1ClickShape.get());
             const auto releaseSize = (player2 ? Settings::p2ReleaseSize.get() : Settings::p1ReleaseSize.get()) / zoomMult;
             const auto releaseCol = color_cast<ccColor4F>(player2 ? Settings::p2ReleaseColor.get() : Settings::p1ReleaseColor);
-            const auto releaseShape = Utils::indicatorShapeFromString(player2 ? Settings::p2ReleaseShape.get() : Settings::p1ReleaseShape.get());
+            const auto releaseShape = BetterEditorTrail::indicatorShapeFromString(player2 ? Settings::p2ReleaseShape.get() : Settings::p1ReleaseShape.get());
 
             for (const auto& point : state.inputs) {
                 if (!pView.containsPoint(point.pos)) {
@@ -224,7 +223,7 @@ namespace BetterEditorTrail {
         }
         
         m_draw->setUseTint(Settings::chroma);
-        m_draw->setTint(nwo5::utils::getChroma<ccColor4F>(Settings::chromaSpeed, 0.0f, Settings::chromaSaturation, 1.0f));
+        m_draw->setTint(misc::getChroma<ccColor4F>(Settings::chromaSpeed, 0.0f, Settings::chromaSaturation, 1.0f));
 
         const auto viewSize = editor::size(false) * 1.25f; // i dont feel like doing more complicated checks for perfect culling
         const CCRect view{editor::center(false) - viewSize / 2, viewSize};

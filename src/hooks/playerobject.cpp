@@ -14,7 +14,7 @@ class $modify(PlayerObject) {
 
             if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
                 const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
-                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, getRealPosition(), false);
+                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), false);
             }
 
             return ret;
@@ -22,7 +22,7 @@ class $modify(PlayerObject) {
         else {
             if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
                 const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
-                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, getRealPosition(), false);
+                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), false);
             }
 
             return PlayerObject::pushButton(button);
@@ -35,7 +35,7 @@ class $modify(PlayerObject) {
 
             if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
                 const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
-                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, getRealPosition(), true);
+                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), true);
             }
 
             return ret;
@@ -43,7 +43,7 @@ class $modify(PlayerObject) {
         else {
             if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
                 const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
-                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, getRealPosition(), true);
+                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), true);
             }
 
             return PlayerObject::releaseButton(button);

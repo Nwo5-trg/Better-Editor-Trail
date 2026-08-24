@@ -2,7 +2,7 @@
 
 using namespace geode::prelude;
 
-namespace Utils {
+namespace BetterEditorTrail {
     // this is a *horrendous atrocity* for many a reason... but its fun ! let me have some joy and whimsy
     IndicatorShape indicatorShapeFromString(std::string_view pStr) {
         switch (pStr.front()) {

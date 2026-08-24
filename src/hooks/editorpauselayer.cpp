@@ -21,10 +21,10 @@ class $modify(HookedEditorPauseLayer, EditorPauseLayer) {
             return true;
         }
 
-        Setup(ui::buttonSprite(
+        ui::buttonSprite(
             "settings-button.png"_spr, this, 
             menu_selector(HookedEditorPauseLayer::onBETSettings), 0.85f
-        ))
+        )
             .id("settings-button"_spr)
             .parent(menu);
 
