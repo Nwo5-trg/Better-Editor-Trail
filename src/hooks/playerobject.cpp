@@ -9,6 +9,10 @@ using BetterEditorTrail::InputType;
 
 class $modify(PlayerObject) {
     bool pushButton(PlayerButton button) {
+        if (!BetterEditorTrail::processInputs()) {
+            return PlayerObject::pushButton(button);
+        }
+
         if (Settings::spiderFix) {
             const auto ret = PlayerObject::pushButton(button);
 
@@ -30,6 +34,10 @@ class $modify(PlayerObject) {
     }
 
     bool releaseButton(PlayerButton button) {
+        if (!BetterEditorTrail::processInputs()) {
+            return PlayerObject::releaseButton(button);
+        }
+
         if (Settings::spiderFix) {
             const auto ret = PlayerObject::releaseButton(button);
 

@@ -32,6 +32,14 @@ class $modify(HookedGJBaseGameLayer, GJBaseGameLayer) {
         trail->addPlayerHitbox(m_player2);
     }
 
+    void handleButton(bool down, int button, bool isPlayer1) {
+        BetterEditorTrail::processInputs() = true;
+
+        GJBaseGameLayer::handleButton(down, button, isPlayer1);
+
+        BetterEditorTrail::processInputs() = false;
+    }
+
     #ifdef GEODE_IS_MACOS
         void processQueuedButtons(float dt, bool clearInputQueue) {
             GJBaseGameLayer::processQueuedButtons(dt, clearInputQueue);

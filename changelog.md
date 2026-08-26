@@ -2,6 +2,7 @@
 **Fixed**
 
 - ported to new sillyapi version
+- change input handling which should fix release indicators sometimes breaking (mayb ???)
 
 ## v4.1.0
 **Added**

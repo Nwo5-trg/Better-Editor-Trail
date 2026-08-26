@@ -17,4 +17,9 @@ namespace BetterEditorTrail {
     };
 
     IndicatorShape indicatorShapeFromString(std::string_view pStr);
+
+    inline auto& processInputs() {
+        static bool val = false;
+        return val;
+    }
 }
