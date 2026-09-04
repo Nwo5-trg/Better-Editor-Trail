@@ -14,6 +14,14 @@ class $modify(PlayerObject) {
         }
 
         if (Settings::spiderFix) {
+            if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
+                const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
+                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), false);
+            }
+
+            return PlayerObject::pushButton(button);
+        }
+        else {
             const auto ret = PlayerObject::pushButton(button);
 
             if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
@@ -23,14 +31,6 @@ class $modify(PlayerObject) {
 
             return ret;
         }
-        else {
-            if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
-                const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
-                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), false);
-            }
-
-            return PlayerObject::pushButton(button);
-        }
     }
 
     bool releaseButton(PlayerButton button) {
@@ -39,6 +39,14 @@ class $modify(PlayerObject) {
         }
 
         if (Settings::spiderFix) {
+            if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
+                const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
+                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), true);
+            }
+
+            return PlayerObject::releaseButton(button);
+        }
+        else {
             const auto ret = PlayerObject::releaseButton(button);
 
             if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
@@ -47,14 +55,6 @@ class $modify(PlayerObject) {
             }
 
             return ret;
-        }
-        else {
-            if (m_editorEnabled && isVisible() && editor::isPlaytesting()) {
-                const auto input = m_isPlatformer ? static_cast<InputType>(button) : InputType::Normal;
-                BetterEditorTrail::getTrail()->addPlayerInput(m_isSecondPlayer, input, this->getRealPosition(), true);
-            }
-
-            return PlayerObject::releaseButton(button);
         }
     }
 };
