@@ -8,7 +8,7 @@ using namespace nwo5::utils::prelude;
 using namespace nwo5::editor::prelude;
 using namespace nwo5::ui::prelude;
 
-namespace BetterEditorTrail {
+namespace bettereditortrail {
     enum class IndicatorShape {
         Square,
         Circle,

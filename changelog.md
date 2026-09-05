@@ -1,3 +1,12 @@
+## v4.1.2
+**Added**
+
+- toggle for new input handling (bot fix)
+
+**Internal**
+
+- renamed some namespace to be in `nocase`
+
 ## v4.1.1
 **Fixed**
 

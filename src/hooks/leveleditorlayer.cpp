@@ -4,7 +4,7 @@
 
 using namespace geode::prelude;
 
-using BetterEditorTrail::EditorTrail;
+using bettereditortrail::EditorTrail;
 
 class $modify(HookedLevelEditorLayer, LevelEditorLayer) {
     struct Fields {
@@ -26,7 +26,7 @@ class $modify(HookedLevelEditorLayer, LevelEditorLayer) {
 
         misc::setupKeybind(this, "hitboxes-keybind", [this] (const auto&, bool pDown, auto, auto) {
             if (pDown) {
-                Settings::hitboxesEnabled = !Settings::hitboxesEnabled;
+                settings::hitboxesEnabled = !settings::hitboxesEnabled;
             }
         });
         
@@ -40,7 +40,7 @@ class $modify(HookedLevelEditorLayer, LevelEditorLayer) {
     }
 
     void updateDebugDraw() {
-        if (!Settings::enabled) {
+        if (!settings::enabled) {
             LevelEditorLayer::updateDebugDraw();
 
             return m_fields->trail->updateTrail(false);
@@ -52,7 +52,7 @@ class $modify(HookedLevelEditorLayer, LevelEditorLayer) {
 
         LevelEditorLayer::updateDebugDraw();
 
-        if (Settings::hideInPlaytest && editor::isPlaytesting()) {
+        if (settings::hideInPlaytest && editor::isPlaytesting()) {
             m_fields->trail->updateTrail(false);
         }
         else {
@@ -63,7 +63,7 @@ class $modify(HookedLevelEditorLayer, LevelEditorLayer) {
     }
 
     void postUpdate(float dt) {
-        if (Settings::updateMethod == "Post Update") {
+        if (settings::updateMethod == "Post Update") {
             auto fields = m_fields.self();
 
             const bool isStart = fields->wasDual != m_gameState.m_isDualMode;
@@ -86,7 +86,7 @@ class $modify(HookedLevelEditorLayer, LevelEditorLayer) {
     }
 };
 
-namespace BetterEditorTrail {
+namespace bettereditortrail {
     EditorTrail* getTrail() {
         auto layer = editor::layer<HookedLevelEditorLayer>();
         

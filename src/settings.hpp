@@ -4,7 +4,7 @@
 
 using namespace nwo5::settings::prelude;
 
-namespace Settings {
+namespace settings {
     inline Setting<bool> enabled{"general-enabled"};
     inline Setting<bool> settingsButtonEnabled{"general-settings-button"};
     inline Setting<bool> scaleWithZoom{"general-scale-with-zoom"};
@@ -25,6 +25,7 @@ namespace Settings {
     inline Setting<bool> indicatorsEnabled{"indicators-enabled"};
     inline Setting<bool> showReleases{"indicators-show-releases"};
     inline Setting<bool> spiderFix{"indicators-spider-fix"};
+    inline Setting<bool> botFix{"indicators-bot-fix"};
     inline Setting<bool> directionalIndicators{"indicators-directional-indicators"};
 
     inline Setting<float> p1ClickSize{"p1-indicators-click-size"};

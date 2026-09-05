@@ -10,13 +10,13 @@ class $modify(HookedGJBaseGameLayer, GJBaseGameLayer) {
     };
 
     void updateTrailGameTick() {
-        auto trail = BetterEditorTrail::getTrail();
+        auto trail = bettereditortrail::getTrail();
 
         if (!trail) {
             return;
         }
 
-        if (Settings::updateMethod == "Game Tick") {
+        if (settings::updateMethod == "Game Tick") {
             auto fields = m_fields.self();
 
             const bool isStart = fields->wasDual != m_gameState.m_isDualMode;
@@ -33,11 +33,11 @@ class $modify(HookedGJBaseGameLayer, GJBaseGameLayer) {
     }
 
     void handleButton(bool down, int button, bool isPlayer1) {
-        BetterEditorTrail::processInputs() = true;
+        bettereditortrail::processInputs() = true;
 
         GJBaseGameLayer::handleButton(down, button, isPlayer1);
 
-        BetterEditorTrail::processInputs() = false;
+        bettereditortrail::processInputs() = false;
     }
 
     #ifdef GEODE_IS_MACOS

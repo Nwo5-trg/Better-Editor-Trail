@@ -2,7 +2,7 @@
 
 #include "utils.hpp"
 
-namespace BetterEditorTrail {
+namespace bettereditortrail {
     enum class InputType {
         Normal = 0,
 

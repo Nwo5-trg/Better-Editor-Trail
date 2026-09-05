@@ -3,7 +3,7 @@
 
 using namespace geode::prelude;
 
-namespace BetterEditorTrail {
+namespace bettereditortrail {
     bool EditorTrail::init() {
         if (!CCNode::init()) {
             return false;
@@ -20,17 +20,17 @@ namespace BetterEditorTrail {
     }
 
     void EditorTrail::drawHitboxes(const cocos2d::CCRect& pView) {
-        const auto zoomMult = Settings::scaleWithZoom && !Settings::dontScaleHitboxesWithZoom ? editor::zoom() : 1.0f;
+        const auto zoomMult = settings::scaleWithZoom && !settings::dontScaleHitboxesWithZoom ? editor::zoom() : 1.0f;
 
-        for (auto player2 : {!Settings::focusPlayer2.get(), Settings::focusPlayer2.get()}) {
+        for (auto player2 : {!settings::focusPlayer2.get(), settings::focusPlayer2.get()}) {
             const auto& state = player2 ? m_player2State : m_player1State;
 
-            const auto thickness = (player2 ? Settings::p2HitboxesThickness.get() : Settings::p1HitboxesThickness.get()) / zoomMult;
-            const auto col = color_cast<ccColor4F>(player2 ? Settings::p2HitboxesColor.get() : Settings::p1HitboxesColor.get());
-            const ccColor4F fill{col.r, col.g, col.b, player2 ? Settings::p2HitboxesFillOpacity.get() : Settings::p1HitboxesFillOpacity.get()};
-            const auto innerThickness = (player2 ? Settings::p2HitboxesInnerThickness.get() : Settings::p1HitboxesInnerThickness.get()) / zoomMult;
-            const auto innerCol = color_cast<ccColor4F>(player2 ? Settings::p2HitboxesInnerColor.get() : Settings::p1HitboxesInnerColor.get());
-            const ccColor4F innerFill{innerCol.r, innerCol.g, innerCol.b, player2 ? Settings::p2HitboxesInnerFillOpacity.get() : Settings::p1HitboxesInnerFillOpacity.get()};
+            const auto thickness = (player2 ? settings::p2HitboxesThickness.get() : settings::p1HitboxesThickness.get()) / zoomMult;
+            const auto col = color_cast<ccColor4F>(player2 ? settings::p2HitboxesColor.get() : settings::p1HitboxesColor.get());
+            const ccColor4F fill{col.r, col.g, col.b, player2 ? settings::p2HitboxesFillOpacity.get() : settings::p1HitboxesFillOpacity.get()};
+            const auto innerThickness = (player2 ? settings::p2HitboxesInnerThickness.get() : settings::p1HitboxesInnerThickness.get()) / zoomMult;
+            const auto innerCol = color_cast<ccColor4F>(player2 ? settings::p2HitboxesInnerColor.get() : settings::p1HitboxesInnerColor.get());
+            const ccColor4F innerFill{innerCol.r, innerCol.g, innerCol.b, player2 ? settings::p2HitboxesInnerFillOpacity.get() : settings::p1HitboxesInnerFillOpacity.get()};
 
             for (const auto& point : state.hitbox) {
                 if (!pView.containsPoint(point.hitbox.origin)) {
@@ -42,7 +42,7 @@ namespace BetterEditorTrail {
                 );
             }
 
-            if (Settings::showInnerHitbox) {
+            if (settings::showInnerHitbox) {
                 for (const auto& point : state.hitbox) {
                     if (pView.containsPoint(point.hitbox.origin)) {
                         m_draw->drawRect(
@@ -54,14 +54,14 @@ namespace BetterEditorTrail {
         }
     }
     void EditorTrail::drawTrail(const cocos2d::CCRect& pView) {
-        const auto zoomMult = Settings::scaleWithZoom ? editor::zoom() : 1.0f;
+        const auto zoomMult = settings::scaleWithZoom ? editor::zoom() : 1.0f;
 
-        for (auto player2 : {!Settings::focusPlayer2.get(), Settings::focusPlayer2.get()}) {
+        for (auto player2 : {!settings::focusPlayer2.get(), settings::focusPlayer2.get()}) {
             const auto& state = player2 ? m_player2State : m_player1State;
 
-            const auto col = color_cast<ccColor4F>(player2 ? Settings::p2TrailColor.get() : Settings::p1TrailColor);
-            const auto holdCol = Settings::showHolding ? color_cast<ccColor4F>(player2 ? Settings::p2TrailHoldColor.get() : Settings::p1TrailHoldColor) : col;
-            const auto size = (player2 ? Settings::p2TrailSize.get() : Settings::p1TrailSize.get()) / zoomMult;
+            const auto col = color_cast<ccColor4F>(player2 ? settings::p2TrailColor.get() : settings::p1TrailColor);
+            const auto holdCol = settings::showHolding ? color_cast<ccColor4F>(player2 ? settings::p2TrailHoldColor.get() : settings::p1TrailHoldColor) : col;
+            const auto size = (player2 ? settings::p2TrailSize.get() : settings::p1TrailSize.get()) / zoomMult;
 
             std::optional<CCPoint> segmentStart = std::nullopt;
 
@@ -84,17 +84,17 @@ namespace BetterEditorTrail {
         }
     }
     void EditorTrail::drawIndicators(const cocos2d::CCRect& pView) {
-        const auto zoomMult = Settings::scaleWithZoom ? editor::zoom() : 1.0f;
+        const auto zoomMult = settings::scaleWithZoom ? editor::zoom() : 1.0f;
 
-        for (auto player2 : {!Settings::focusPlayer2.get(), Settings::focusPlayer2.get()}) {
+        for (auto player2 : {!settings::focusPlayer2.get(), settings::focusPlayer2.get()}) {
             const auto& state = player2 ? m_player2State : m_player1State;
 
-            const auto clickSize = (player2 ? Settings::p2ClickSize.get() : Settings::p1ClickSize.get()) / zoomMult;
-            const auto clickCol = color_cast<ccColor4F>(player2 ? Settings::p2ClickColor.get() : Settings::p1ClickColor);
-            const auto clickShape = BetterEditorTrail::indicatorShapeFromString(player2 ? Settings::p2ClickShape.get() : Settings::p1ClickShape.get());
-            const auto releaseSize = (player2 ? Settings::p2ReleaseSize.get() : Settings::p1ReleaseSize.get()) / zoomMult;
-            const auto releaseCol = color_cast<ccColor4F>(player2 ? Settings::p2ReleaseColor.get() : Settings::p1ReleaseColor);
-            const auto releaseShape = BetterEditorTrail::indicatorShapeFromString(player2 ? Settings::p2ReleaseShape.get() : Settings::p1ReleaseShape.get());
+            const auto clickSize = (player2 ? settings::p2ClickSize.get() : settings::p1ClickSize.get()) / zoomMult;
+            const auto clickCol = color_cast<ccColor4F>(player2 ? settings::p2ClickColor.get() : settings::p1ClickColor);
+            const auto clickShape = bettereditortrail::indicatorShapeFromString(player2 ? settings::p2ClickShape.get() : settings::p1ClickShape.get());
+            const auto releaseSize = (player2 ? settings::p2ReleaseSize.get() : settings::p1ReleaseSize.get()) / zoomMult;
+            const auto releaseCol = color_cast<ccColor4F>(player2 ? settings::p2ReleaseColor.get() : settings::p1ReleaseColor);
+            const auto releaseShape = bettereditortrail::indicatorShapeFromString(player2 ? settings::p2ReleaseShape.get() : settings::p1ReleaseShape.get());
 
             for (const auto& point : state.inputs) {
                 if (!pView.containsPoint(point.pos)) {
@@ -104,7 +104,7 @@ namespace BetterEditorTrail {
                 const auto& col = point.release ? releaseCol : clickCol;
                 const auto size = point.release ? releaseSize : clickSize;
 
-                if (point.type == InputType::Normal || !Settings::directionalIndicators) {
+                if (point.type == InputType::Normal || !settings::directionalIndicators) {
                     switch (point.release ? releaseShape : clickShape) {
                         case IndicatorShape::Square: {
                             m_draw->drawDot(point.pos, size, col);
@@ -222,19 +222,19 @@ namespace BetterEditorTrail {
             return;
         }
         
-        m_draw->setUseTint(Settings::chroma);
-        m_draw->setTint(misc::getChroma<ccColor4F>(Settings::chromaSpeed, 0.0f, Settings::chromaSaturation, 1.0f));
+        m_draw->setUseTint(settings::chroma);
+        m_draw->setTint(misc::getChroma<ccColor4F>(settings::chromaSpeed, 0.0f, settings::chromaSaturation, 1.0f));
 
         const auto viewSize = editor::size(false) * 1.25f; // i dont feel like doing more complicated checks for perfect culling
         const CCRect view{editor::center(false) - viewSize / 2, viewSize};
 
-        if (Settings::hitboxesEnabled) {
+        if (settings::hitboxesEnabled) {
             drawHitboxes(view);
         }
 
         drawTrail(view);
 
-        if (Settings::indicatorsEnabled) {
+        if (settings::indicatorsEnabled) {
             drawIndicators(view);
         }
     }

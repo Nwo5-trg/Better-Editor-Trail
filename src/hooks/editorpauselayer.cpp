@@ -11,7 +11,7 @@ class $modify(HookedEditorPauseLayer, EditorPauseLayer) {
             return false;
         }
 
-        if (!Settings::settingsButtonEnabled) {
+        if (!settings::settingsButtonEnabled) {
             return true;
         }
 

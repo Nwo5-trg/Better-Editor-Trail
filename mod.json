@@ -132,6 +132,12 @@
             "description": "create indicator before jump is updated (eg first thing after a click is handled; before the game does a jump/orb click)",
             "default": true
         },
+        "indicators-bot-fix": {
+            "type": "bool",
+            "name": "Bot Fix (Old Input Handling)",
+            "description": "by default might not work with some bots, this fixes that but is known to sometimes cause release indicators to break",
+            "default": false
+        },
         "indicators-directional-indicators": {
             "type": "bool",
             "name": "Directional Indicators",
