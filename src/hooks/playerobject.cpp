@@ -9,7 +9,7 @@ using bettereditortrail::InputType;
 
 class $modify(PlayerObject) {
     bool pushButton(PlayerButton button) {
-        if (!settings::botFix && !bettereditortrail::processInputs()) {
+        if (!settings::botFix && !bettereditortrail::processInputs() && !m_isPlatformer) {
             return PlayerObject::pushButton(button);
         }
 
@@ -34,8 +34,8 @@ class $modify(PlayerObject) {
     }
 
     bool releaseButton(PlayerButton button) {
-        if (!settings::botFix && !bettereditortrail::processInputs()) {
-            return PlayerObject::pushButton(button);
+        if (!settings::botFix && !bettereditortrail::processInputs() && !m_isPlatformer) {
+            return PlayerObject::releaseButton(button);
         }
 
         if (settings::spiderFix) {

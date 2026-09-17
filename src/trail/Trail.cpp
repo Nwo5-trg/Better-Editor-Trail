@@ -128,26 +128,34 @@ namespace bettereditortrail {
     }
 
     void EditorTrail::drawArrow(const cocos2d::CCPoint& pPos, float pSize, InputType pType, const cocos2d::ccColor4F& pCol) {
-        const auto half = pSize * 0.5f * std::sqrt(2.0f) * 0.5f;
-        const auto offset = pSize * 1.5f;
-        const auto tip = offset * 2;
+        const float base = pSize * 3.0f;
+        const float tip = pSize * 1.5f;
 
         switch (pType) {
             case InputType::Up: {
-                m_draw->drawSegment({pPos.x, pPos.y - offset}, {pPos.x, pPos.y + offset}, pSize, pCol);
-                m_draw->drawSegment({pPos.x - half, pPos.y + offset + half}, {pPos.x + offset, pPos.y}, pSize, pCol);
-                m_draw->drawSegment({pPos.x + half, pPos.y + offset + half}, {pPos.x - offset, pPos.y}, pSize, pCol);
-            break; }
+                const CCPoint top{pPos.x, pPos.y + base / 2};
+                
+                m_draw->drawSegment({pPos.x, pPos.y - base / 2}, {top.x, top.y - pSize}, pSize, pCol);
+                m_draw->drawSegment(top, {top.x - tip, top.y - tip}, pSize, pCol);
+                m_draw->drawSegment(top, {top.x + tip, top.y - tip}, pSize, pCol);
+                break;
+            }
             case InputType::Right: {
-                m_draw->drawSegment(pPos, {pPos.x + tip, pPos.y}, pSize, pCol);
-                m_draw->drawSegment({pPos.x + tip + half, pPos.y - half}, {pPos.x + offset, pPos.y + offset}, pSize, pCol);
-                m_draw->drawSegment({pPos.x + tip + half, pPos.y + half}, {pPos.x + offset, pPos.y - offset}, pSize, pCol);
-            break; }
+                const CCPoint top{pPos.x + base / 2, pPos.y};
+
+                m_draw->drawSegment({pPos.x - base / 2, pPos.y}, {top.x - pSize, top.y}, pSize, pCol);
+                m_draw->drawSegment(top, {top.x - tip, top.y + tip}, pSize, pCol);
+                m_draw->drawSegment(top, {top.x - tip, top.y - tip}, pSize, pCol);
+                break;
+            }
             case InputType::Left: {
-                m_draw->drawSegment(pPos, {pPos.x - tip, pPos.y}, pSize, pCol);
-                m_draw->drawSegment({pPos.x - tip - half, pPos.y - half}, {pPos.x - offset, pPos.y + offset}, pSize, pCol);
-                m_draw->drawSegment({pPos.x - tip - half, pPos.y + half}, {pPos.x - offset, pPos.y - offset}, pSize, pCol);
-            break; }
+                const CCPoint top{pPos.x - base / 2, pPos.y};
+
+                m_draw->drawSegment({pPos.x + base / 2, pPos.y}, {top.x + pSize, top.y}, pSize, pCol);
+                m_draw->drawSegment(top, { top.x + tip, top.y + tip }, pSize, pCol);
+                m_draw->drawSegment(top, { top.x + tip, top.y - tip }, pSize, pCol);
+                break;
+            }
             default: break;
         }
     }

@@ -1,3 +1,8 @@
+## v4.1.3
+**Fixed**
+
+- platformer arrows
+
 ## v4.1.2
 **Added**
 
