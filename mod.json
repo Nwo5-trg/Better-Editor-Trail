@@ -144,6 +144,14 @@
             "description": "replace indicator dots with arrows in platformer mode",
             "default": true
         },
+        "indicators-directional-indicator-scale": {
+            "type": "float",
+            "name": "Directional Indicator Scale",
+            "description": "technically thickness, lmk if u want real scaling",
+            "default": 0.75,
+            "min": 0.1,
+            "max": 2
+        },
         "p1-indicators-title": {
             "type": "title",
             "name": "P1 Indicators"

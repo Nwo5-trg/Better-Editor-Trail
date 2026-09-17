@@ -128,8 +128,10 @@ namespace bettereditortrail {
     }
 
     void EditorTrail::drawArrow(const cocos2d::CCPoint& pPos, float pSize, InputType pType, const cocos2d::ccColor4F& pCol) {
-        const float base = pSize * 3.0f;
-        const float tip = pSize * 1.5f;
+        const float base = pSize * 4.0f;
+        const float tip = pSize * 2.0f;
+
+        pSize *= settings::directionalIndicatorScale;
 
         switch (pType) {
             case InputType::Up: {

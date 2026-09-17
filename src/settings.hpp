@@ -27,6 +27,7 @@ namespace settings {
     inline Setting<bool> spiderFix{"indicators-spider-fix"};
     inline Setting<bool> botFix{"indicators-bot-fix"};
     inline Setting<bool> directionalIndicators{"indicators-directional-indicators"};
+    inline Setting<float> directionalIndicatorScale{"indicators-directional-indicator-scale"};
 
     inline Setting<float> p1ClickSize{"p1-indicators-click-size"};
     inline Setting<cocos2d::ccColor4B> p1ClickColor{"p1-indicators-click-color"};
