@@ -22,16 +22,11 @@ class $modify(HookedEditorPauseLayer, EditorPauseLayer) {
         }
 
         ui::buttonSprite(
-            "settings-button.png"_spr, this, 
-            menu_selector(HookedEditorPauseLayer::onBETSettings), 0.85f
+            "settings-button.png"_spr, [] (auto) { geode::openSettingsPopup(Mod::get(), true); }, 0.85f
         )
             .id("settings-button"_spr)
             .parent(menu);
 
         return true;
-    }
-
-    void onBETSettings(CCObject* sender) {
-        openSettingsPopup(Mod::get(), true);
     }
 };

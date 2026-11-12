@@ -1,14 +1,14 @@
 {
-    "geode": "5.9.0",
+    "geode": "6.0.0-alpha.1",
     "gd": {
-        "win": "2.2081",
-        "android": "2.2081",
-        "mac": "2.2081",
-        "ios": "2.2081"
+        "win": "2.2091",
+        "android": "2.2091",
+        "mac": "2.2091",
+        "ios": "2.2091"
     },
     "id": "nwo5.better_editor_trail",
     "name": "Better Editor Trail",
-    "version": "v4.1.3",
+    "version": "v4.2.0",
     "developer": "Nwo5",
     "description": "silly trail mod",
     "tags": ["editor", "enhancement", "bugfix", "customization", "offline"],
@@ -17,7 +17,7 @@
         "community": "https://discord.gg/AeFeYWGUxZ"
     },
     "dependencies": {
-        "nwo5.silly-api": ">=2.0.0"
+        "nwo5.silly-api": ">=3.0.0"
     },
     "resources": {
         "sprites": ["resources/*.png"]
